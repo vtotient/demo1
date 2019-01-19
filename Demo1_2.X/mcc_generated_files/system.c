@@ -56,8 +56,18 @@ void SYSTEM_Initialize(void)
     INTERRUPT_Initialize();
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
-}
 
-/**
- End of File
-*/
+    TRISEbits.TRISE0 = 0;
+    TRISEbits.TRISE1 = 0;
+    TRISBbits.TRISB14 = 0;
+    TRISEbits.TRISE7 = 1; // Config S1 as input
+
+    LATBbits.LATB14 = 0;
+    LATEbits.LATE0 = 0; 
+    LATEbits.LATE1 = 0; 
+
+    // Enable Input Capture Channel 1 (Interrupt)
+    IEC0 |= 0x2; 
+    // Set low priority for Capture Channel 1: bits 6-4
+    IPC0 |= 0x70;
+}
