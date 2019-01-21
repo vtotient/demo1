@@ -10,6 +10,8 @@
 #include "buttons.c"
 #include "timer_1ms.c"
 #include "timer_1ms.h"
+#include "adc.c"
+#include "adc.h"
 
 #define BUTTON_DEBOUNCE_TIME 15000
 
@@ -30,25 +32,32 @@ int main(void)
     // Set the time
     TIMER_SetConfiguration(TIMER_CONFIGURATION_1MS);
 
+    //Enable and configure the ADC so it can sample the potentiometer.
+    ADC_SetConfiguration(ADC_CONFIGURATION_DEFAULT);
+    ADC_ChannelEnable(ADC_CHANNEL_POTENTIOMETER);
+
     FLAGS flags;
     flags.all_flags = 0; // Set all flags to zero
-    //volatile int flag = 0;
-    bool btn_pressed, reliable;
-    int i;
+
+    uint16_t potentiometer = 0;
 
     while (1)
     {
         lib_blink(&flags);
-
+        
         if(BUTTON_IsPressed(BUTTON_S1) == 1){
+            // Debounce
             lib_stall(BUTTON_DEBOUNCE_TIME); // Wait
-           // for(i =0; i<30; i++) TIMER_RequestTick(&DEBOUNCE_Tasks, 1);
-            btn_pressed = BUTTON_IsPressed(BUTTON_S1) == 1; // Button still pressed?
-            reliable = btn_pressed == true; 
-            if(!reliable) btn_pressed = false;
-            if(btn_pressed) LATBbits.LATB14 = !LATBbits.LATB14;
+            flags.btn_pressed = BUTTON_IsPressed(BUTTON_S1) == 1; // Button still pressed?
+            flags.reliable = flags.btn_pressed == 1; 
+            if(!flags.reliable) flags.btn_pressed = 0;
+
+            flags.toggle = !flags.toggle;
+            PIN_D9 = flags.toggle; 
         }
 
+        potentiometer = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
+        set_RGB_LED(potentiometer);
     }
 
 }

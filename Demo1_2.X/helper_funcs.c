@@ -33,10 +33,32 @@ void lib_blink(FLAGS *flag){
 }
 
 /* 
- * This function sets the time elapsed flag to true once the 1ms 
+ * This function sets the timer flag to true once the 1ms 
  * timer triggers an interrupt. 
  * NOTE: Does not clear the flag
  */
 void DEBOUNCE_Tasks(FLAGS *flag){
-	flag->all_flags |= 0xFE;
+	flag->all_flags |= 0x02; // Set the second bit
+}
+
+/* 
+ * This fucntion sets the LEDs depending on the potentiometer
+ * INPUT: Potentiometer percentage
+ */
+void set_RGB_LED(int pot){
+    if(pot > 0 && pot <= 33){ 
+        LED_GREEN = 0;
+        LED_RED = 0;
+        LED_BLUE = 1;
+    }
+    if(pot > 33 && pot <= 66){
+        LED_GREEN = 0;
+        LED_RED = 1;
+        LED_BLUE = 0;
+    }
+    if(pot > 66 && pot <= 100){
+        LED_GREEN = 1;
+        LED_RED = 0;
+        LED_BLUE = 0;
+    }
 }

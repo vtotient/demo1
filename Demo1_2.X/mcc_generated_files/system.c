@@ -61,10 +61,16 @@ void SYSTEM_Initialize(void)
     TRISEbits.TRISE1 = 0;
     TRISBbits.TRISB14 = 0;
     TRISEbits.TRISE7 = 1; // Config S1 as input
+    TRISDbits.TRISD7 = 0;
+    TRISDbits.TRISD5 = 0;
+    TRISDbits.TRISD9 = 0;
 
     LATBbits.LATB14 = 0;
     LATEbits.LATE0 = 0; 
     LATEbits.LATE1 = 0; 
+    LATDbits.LATD7 = 0;
+    LATDbits.LATD5 = 0;
+    LATDbits.LATD9 = 0;
 
     // Enable Input Capture Channel 1 (Interrupt)
     IEC0 |= 0x2; 

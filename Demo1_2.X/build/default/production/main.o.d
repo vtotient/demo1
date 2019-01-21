@@ -8,4 +8,6 @@ leds.h  \
  buttons.h  \
 buttons.c  \
 timer_1ms.c  \
-timer_1ms.h 
+timer_1ms.h  \
+adc.c  \
+adc.h 
