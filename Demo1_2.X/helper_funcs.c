@@ -15,16 +15,28 @@ void lib_stall(int time){
 }
 
 
-/* Blink LED1 and LED2 */
-void lib_blink(int flag){
-	if(flag == 0){
+/* Blink LED1 and LED2 
+ * First bit of flag is the led_flag
+ * NOTE: flag is 8bts
+ */
+void lib_blink(FLAGS *flag){
+	if((flag->led_flag) == 0){
             lib_stall(9000);
             LATEbits.LATE0 = !LATEbits.LATE0; // Blink RED LED1
-            flag++;
+            flag->all_flags |= 1; // Set lsb
         }
         else {
             lib_stall(9000);
-            LATEbits.LATE1 = !LATEbits.LATE1; // Blink RED LED1
-            flag = 0;
+            LATEbits.LATE1 = !LATEbits.LATE1; // Blink RED LED2
+            flag->all_flags &= 0xFE; // Clear lsb
         }
+}
+
+/* 
+ * This function sets the time elapsed flag to true once the 1ms 
+ * timer triggers an interrupt. 
+ * NOTE: Does not clear the flag
+ */
+void DEBOUNCE_Tasks(FLAGS *flag){
+	flag->all_flags |= 0xFE;
 }
