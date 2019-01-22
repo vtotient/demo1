@@ -12,6 +12,7 @@
 #include "timer_1ms.h"
 #include "adc.c"
 #include "adc.h"
+#include "pwm.h"
 
 #define BUTTON_DEBOUNCE_TIME 15000
 
@@ -40,6 +41,14 @@ int main(void)
     flags.all_flags = 0; // Set all flags to zero
 
     uint16_t potentiometer = 0;
+
+    // PWM Module 
+    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
+
+    PWM_MasterDutyCycleSet(0xFFF0>>2);
+    PWM_MasterPeriodSet(0xFFF0);
+    PWM_MasterPhaseSet(0xFFFF);
+    PWM_ModuleEnable(pwm3);
 
     while (1)
     {

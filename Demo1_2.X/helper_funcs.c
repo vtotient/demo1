@@ -47,9 +47,9 @@ void DEBOUNCE_Tasks(FLAGS *flag){
  */
 void set_RGB_LED(int pot){
     if(pot > 0 && pot <= 33){ 
-        LED_GREEN = 0;
+        LED_GREEN = 1;
         LED_RED = 0;
-        LED_BLUE = 1;
+        LED_BLUE = 0;
     }
     if(pot > 33 && pot <= 66){
         LED_GREEN = 0;

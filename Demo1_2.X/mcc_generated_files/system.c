@@ -48,6 +48,8 @@
 #include "system_types.h"
 #include "interrupt_manager.h"
 #include "traps.h"
+#include "pwm.h"
+#include "pwm.c"
 
 void SYSTEM_Initialize(void)
 {
@@ -56,6 +58,8 @@ void SYSTEM_Initialize(void)
     INTERRUPT_Initialize();
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
+    PWM_Initialize();
+    PWM_ModuleDisable(PWM_GENERATOR_1);
 
     TRISEbits.TRISE0 = 0;
     TRISEbits.TRISE1 = 0;

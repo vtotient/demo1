@@ -10,4 +10,5 @@ buttons.c  \
 timer_1ms.c  \
 timer_1ms.h  \
 adc.c  \
-adc.h 
+adc.h  \
+pwm.h 
