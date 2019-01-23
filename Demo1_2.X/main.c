@@ -44,11 +44,11 @@ int main(void)
 
     // PWM Module 
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
-
-    PWM_MasterDutyCycleSet(0xFFF0>>2);
-    PWM_MasterPeriodSet(0xFFF0);
-    PWM_MasterPhaseSet(0xFFFF);
-    PWM_ModuleEnable(pwm3);
+//
+//    PWM_MasterDutyCycleSet(0x7FF0);
+//    PWM_MasterPeriodSet(0xFFF0);
+//    PWM_MasterPhaseSet(0xFFFF);
+//    PWM_ModuleEnable(pwm3);
 
     while (1)
     {

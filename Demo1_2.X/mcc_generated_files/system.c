@@ -59,7 +59,6 @@ void SYSTEM_Initialize(void)
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
     PWM_Initialize();
-    PWM_ModuleDisable(PWM_GENERATOR_1);
 
     TRISEbits.TRISE0 = 0;
     TRISEbits.TRISE1 = 0;
