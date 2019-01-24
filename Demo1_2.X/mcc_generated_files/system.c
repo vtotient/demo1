@@ -49,7 +49,6 @@
 #include "interrupt_manager.h"
 #include "traps.h"
 #include "pwm.h"
-#include "pwm.c"
 
 void SYSTEM_Initialize(void)
 {
