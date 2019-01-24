@@ -43,6 +43,14 @@ int main(void)
 
     // // PWM Module 
     PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
+    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
+
+    TRISBbits.TRISB10 = 0; // Config RB10 as output
+    TRISBbits.TRISB11 = 0; 
+
+    PWM_DutyCycleSet(pwm3, 0x6147);
+    PWM_PeriodSet(pwm3, 0x7CFF);
+    PWM_ModuleEnable(pwm3);
 
     while (1)
     {
