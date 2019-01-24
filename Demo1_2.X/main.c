@@ -12,9 +12,8 @@
 #include "timer_1ms.h"
 #include "adc.c"
 #include "adc.h"
-#include "pwm.h"
 
-#define BUTTON_DEBOUNCE_TIME 15000
+#define BUTTON_DEBOUNCE_TIME 25000
 
 //------------------------------------------------------------------------------
 //Global variables
@@ -42,13 +41,8 @@ int main(void)
 
     uint16_t potentiometer = 0;
 
-    // PWM Module 
-    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
-//
-//    PWM_MasterDutyCycleSet(0x7FF0);
-//    PWM_MasterPeriodSet(0xFFF0);
-//    PWM_MasterPhaseSet(0xFFFF);
-//    PWM_ModuleEnable(pwm3);
+    // // PWM Module 
+    PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
 
     while (1)
     {
@@ -63,6 +57,13 @@ int main(void)
 
             flags.toggle = !flags.toggle;
             PIN_D9 = flags.toggle; 
+        }
+
+        if(flags.toggle == 0){
+            PWM_ModuleDisable(pwm4);
+        }
+        else if(flags.toggle == 1){
+            PWM_ModuleEnable(pwm4);
         }
 
         potentiometer = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
