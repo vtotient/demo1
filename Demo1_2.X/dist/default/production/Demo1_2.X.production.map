@@ -481,16 +481,16 @@ __FS1ALTREG
  .debug_abbrev    0x0005a9         0xeb build/default/production/mcc_generated_files/mcc.o
  .debug_abbrev    0x000694         0x59 build/default/production/mcc_generated_files/pin_manager.o
 
-.debug_line       0x000000        0xa29
+.debug_line       0x000000        0xa2b
  *(.debug_line)
  .debug_line      0x000000        0x139 build/default/production/mcc_generated_files/reset.o
  .debug_line      0x000139        0x1d8 build/default/production/mcc_generated_files/system.o
- .debug_line      0x000311        0x29d build/default/production/main.o
- .debug_line      0x0005ae         0xff build/default/production/mcc_generated_files/clock.o
- .debug_line      0x0006ad        0x121 build/default/production/mcc_generated_files/traps.o
- .debug_line      0x0007ce         0x55 build/default/production/mcc_generated_files/interrupt_manager.o
- .debug_line      0x000823         0xf5 build/default/production/mcc_generated_files/mcc.o
- .debug_line      0x000918        0x111 build/default/production/mcc_generated_files/pin_manager.o
+ .debug_line      0x000311        0x29f build/default/production/main.o
+ .debug_line      0x0005b0         0xff build/default/production/mcc_generated_files/clock.o
+ .debug_line      0x0006af        0x121 build/default/production/mcc_generated_files/traps.o
+ .debug_line      0x0007d0         0x55 build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_line      0x000825         0xf5 build/default/production/mcc_generated_files/mcc.o
+ .debug_line      0x00091a        0x111 build/default/production/mcc_generated_files/pin_manager.o
 
 .debug_frame      0x000000        0x7ac
  *(.debug_frame)

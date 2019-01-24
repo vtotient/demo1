@@ -111,8 +111,7 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     // __builtin_write_RPCON(0x0000); // unlock PPS
 
-    // RPOR18bits.RP69R = 0x0023;    //RB11->PWM:PWM4L
-    // RPOR18bits. RP68R = 0x0022;    //RB10->PWM:PWM4H
+    // RPOR5 |= 0x0023;    //RB10->PWM:PWM4L
 
     // __builtin_write_RPCON(0x0800); // lock PPS
 

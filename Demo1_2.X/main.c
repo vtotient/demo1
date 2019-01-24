@@ -46,10 +46,6 @@ int main(void)
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
     PWM_ModuleDisable(pwm3);
 
-    // PWM3 as output
-    TRISBbits.TRISB11 = 0;
-    TRISBbits.TRISB10 = 0;
-
     PWM_DutyCycleSet(pwm3, 0x6147);
     PWM_PeriodSet(pwm3, 0x7FFF);
 
@@ -66,11 +62,20 @@ int main(void)
     PWM_DutyCycleSet(pwm3, 0x7FFF);
     PWM_PeriodSet(pwm3, 0x7CFF); // This does not work for PWM3, or I can't find pin.
 
+    // Messing with PWM3
+
+    // RB11/RB10 as output
+    TRISBbits.TRISB11 = 0;
+    TRISBbits.TRISB10 = 0;
+
     // PG3IOCONLbits.SWAP = 0; 
     // PG3IOCONLbits.OVRENH = 0; 
     // PG3IOCONLbits.OVRENL = 0;
+
     // PG3IOCONHbits.PENH = 1;
     // PG3IOCONHbits.PENL = 1; // Trying to map PWM3 to pins.
+    // PG3IOCONHbits.PMOD = 0x02; // Independent mode
+
 
     PWM_ModuleEnable(pwm3);
 

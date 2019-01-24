@@ -97,7 +97,7 @@ void PWM_Initialize (void)
     // EVTFPOL Active-high; EVTFPGS PG1; EVTFSTRD Stretched to 8 PWM clock cycles minimum; EVTFSEL PGTRGSEL bits; EVTFOEN disabled; EVTFSYNC Not synchronized; 
     PWMEVTF = 0x00;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
-    PG3CONH = 0x00;
+    PG3CONH = 0xC000;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL enabled; MDCSEL enabled; 
     PG4CONH = 0xC000;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled; 
@@ -165,7 +165,7 @@ void PWM_Initialize (void)
     // PHASE 0; 
     PG4PHASE = 0x00;
     // DC 24903; 
-    PG3DC = 0x6147;
+    PG3DC = 0x00;
     // DC 0; 
     PG4DC = 0x00;
     // DCA 0; 
@@ -173,15 +173,15 @@ void PWM_Initialize (void)
     // DCA 0; 
     PG4DCA = 0x00;
     // PER 31999; 
-    PG3PER = 0x7CFF;
+    PG3PER = 0x10;
     // PER 16; 
     PG4PER = 0x10;
     // TRIGA 16000; 
-    PG3TRIGA = 0x3E80;
+    PG3TRIGA = 0x00;
     // TRIGA 0; 
     PG4TRIGA = 0x00;
     // TRIGB 24903; 
-    PG3TRIGB = 0x6147;
+    PG3TRIGB = 0x00;
     // TRIGB 0; 
     PG4TRIGB = 0x00;
     // TRIGC 0; 
@@ -199,7 +199,7 @@ void PWM_Initialize (void)
     
 
     // HREN disabled; MODSEL Dual Edge Center-Aligned;one update/cycle; TRGCNT 1; CLKSEL Master clock; ON enabled; 
-    PG3CONL = 0x800E;
+    PG3CONL = 0x8008;
     // HRENd; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled; 
     PG4CONL = 0x8008;
 }
