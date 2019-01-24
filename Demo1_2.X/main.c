@@ -42,12 +42,12 @@ int main(void)
     uint16_t potentiometer = 0;
 
     // // PWM Module 
+     // RB11/RB10 as output
+    TRISBbits.TRISB11 = 0;
+    TRISBbits.TRISB10 = 0; // Set RB10/11 as outputs
+
     PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
-    PWM_ModuleDisable(pwm3);
-
-    PWM_DutyCycleSet(pwm3, 0x6147);
-    PWM_PeriodSet(pwm3, 0x7FFF);
 
     PWM_ModuleDisable(pwm4);
     PG4CONHbits.MDCSEL = 0; // Disable master dc
@@ -56,17 +56,12 @@ int main(void)
     PWM_DutyCycleSet(pwm4, 0x0FFF);
     PWM_PeriodSet(pwm4, 0x7CFF); // This works to set period and duty cycle
 
+    PWM_ModuleDisable(pwm3);
     PG3CONHbits.MDCSEL = 0; 
     PG3CONHbits.MPERSEL = 0;
     PG3CONHbits.MPHSEL = 0;
-    PWM_DutyCycleSet(pwm3, 0x7FFF);
-    PWM_PeriodSet(pwm3, 0x7CFF); // This does not work for PWM3, or I can't find pin.
-
-    // Messing with PWM3
-
-    // RB11/RB10 as output
-    TRISBbits.TRISB11 = 0;
-    TRISBbits.TRISB10 = 0;
+    PWM_DutyCycleSet(pwm3, 0x2EFE);
+    PWM_PeriodSet(pwm3, 0x7CEF); // This does not work for PWM3, or I can't find pin.
 
     // PG3IOCONLbits.SWAP = 0; 
     // PG3IOCONLbits.OVRENH = 0; 
