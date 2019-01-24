@@ -44,13 +44,38 @@ int main(void)
     // // PWM Module 
     PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
+//    PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
+//    PWM_GENERATOR pwm1 = PWM_GENERATOR_1;
 
-    TRISBbits.TRISB10 = 0; // Config RB10 as output
-    TRISBbits.TRISB11 = 0; 
+    // PWM3 as output
+    TRISBbits.TRISB11 = 0;
+    TRISBbits.TRISB10 = 0;
 
     PWM_DutyCycleSet(pwm3, 0x6147);
-    PWM_PeriodSet(pwm3, 0x7CFF);
+    PWM_PeriodSet(pwm3, 0x7FFF);
+
+//    PWM_DutyCycleSet(pwm2, 0x6147);
+//    PWM_PeriodSet(pwm2, 0x7CFF);
+//
+//    PWM_DutyCycleSet(pwm1, 0x6147);
+//    PWM_PeriodSet(pwm1, 0x7CFF);
+
     PWM_ModuleEnable(pwm3);
+//    PWM_ModuleEnable(pwm2);
+//    PWM_ModuleEnable(pwm1);
+    PWM_ModuleDisable(pwm4);
+    PG4CONHbits.MDCSEL = 0; // Disable master dc
+    PG4CONHbits.MPERSEL = 0;
+    PG4CONHbits.MPHSEL = 0;
+    PWM_DutyCycleSet(pwm4, 0x0FFF);
+    PWM_PeriodSet(pwm4, 0x7CFF); // This works to set period and duty cycle
+
+    PG3IOCONLbits.SWAP = 0; //
+    PG3IOCONLbits.OVRENH = 0; //
+    PG3IOCONLbits.OVRENL = 0;
+    PG3IOCONHbits.PENH = 1;
+    PG3IOCONHbits.PENL = 1;
+
 
     while (1)
     {

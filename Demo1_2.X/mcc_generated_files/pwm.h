@@ -78,8 +78,8 @@ typedef enum
 {
 	PWM_GENERATOR_1 =  1,
 	PWM_GENERATOR_2 =  2,
-    PWM_GENERATOR_3 =  3,       
-    PWM_GENERATOR_4 =  4,       
+  PWM_GENERATOR_3 =  3,       
+  PWM_GENERATOR_4 =  4,       
 } PWM_GENERATOR;
         
 /**
