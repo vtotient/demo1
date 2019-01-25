@@ -23,6 +23,14 @@ typedef union
 
 typedef enum
 {
+  ONE_TWO = 0x0,
+  ONE_FOUR = 0x1,
+  ONE_EIGHT = 0x2,
+  ONE_SIXTEEN = 0x3,
+} CLK_RATIO;
+
+typedef enum
+{
     BUTTON_COLOR_RED = 0,
     BUTTON_COLOR_GREEN = 1,
     BUTTON_COLOR_BLUE = 2
@@ -34,3 +42,6 @@ void lib_stall(int time);
 void lib_blink(FLAGS *flag);
 void DEBOUNCE_Task(FLAGS *time_elapsed);
 void set_RGB_LED(int pot);
+bool config_PWM(PWM_GENERATOR pwmx, uint16_t dc, uint16_t phase, uint16_t per);
+void enable_PWM_CLK_DIV(PWM_GENERATOR pmx);
+void set_PWM_CLK_DIV(CLK_RATIO ratio);

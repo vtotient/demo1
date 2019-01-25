@@ -51,43 +51,21 @@ int main(void)
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
     PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
     PWM_GENERATOR pwm1 = PWM_GENERATOR_1; // Instantiate PGs
-    PCLKCONbits.DIVSEL = 0x01; // The clock division ratio is 1:2
+    CLK_RATIO     clk  = ONE_FOUR; // Set the clock divison ratio for PWM
 
-    PWM_ModuleDisable(pwm4);
-    PG4CONHbits.MDCSEL = 0; 
-    PG4CONHbits.MPERSEL = 0;
-    PG4CONHbits.MPHSEL = 0; // Disable master dc, phase, and period
-    PG4CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
-    PWM_DutyCycleSet(pwm4, 0xFFEF);
-    PWM_PeriodSet(pwm4, 0xFFF0); 
-    PWM_PhaseSet(pwm4, 0xBFF4); // Equal to the DC of PWM3
+    set_PWM_CLK_DIV(clk); // Enable the clock divison circuit
 
-    PWM_ModuleDisable(pwm3);
-    PG3CONHbits.MDCSEL = 0; 
-    PG3CONHbits.MPERSEL = 0;
-    PG3CONHbits.MPHSEL = 0;
-    PG3CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
-    PWM_DutyCycleSet(pwm3, 0xBFF4); // 3/4 of the period
-    PWM_PeriodSet(pwm3, 0xFFF0);
-    PWM_PhaseSet(pwm3, 0x7FF8); // Equal to the DC of PWM2
+    config_PWM(pwm4, 0xFFEF, 0xBFF4, 0xFFF0); // Configure DC, PHASE, PER (in that order)
+    enable_PWM_CLK_DIV(pwm4); // Enable clock divison 
 
-    PWM_ModuleDisable(pwm2);
-    PG2CONHbits.MDCSEL = 0; 
-    PG2CONHbits.MPERSEL = 0;
-    PG2CONHbits.MPHSEL = 0;
-    PG2CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
-    PWM_DutyCycleSet(pwm2, 0x7FF8); // 1/2 of the PER
-    PWM_PeriodSet(pwm2, 0xFFF0);
-    PWM_PhaseSet(pwm2, 0x3FFC); // Equal to the DC of PWM1
+    config_PWM(pwm3, 0xBFF4, 0x7FF8, 0xFFF0);
+    enable_PWM_CLK_DIV(pwm3); // Enable clock divison 
 
-    PWM_ModuleDisable(pwm1);
-    PG1CONHbits.MDCSEL = 0; 
-    PG1CONHbits.MPERSEL = 0;
-    PG1CONHbits.MPHSEL = 0;
-    PG1CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
-    PWM_DutyCycleSet(pwm1, 0x3FFC); // 1/4 of the PER
-    PWM_PeriodSet(pwm1, 0xFFF0);
-    PWM_PhaseSet(pwm1, 0x0000);
+    config_PWM(pwm2, 0x7FF8, 0x3FFC, 0xFFF0);
+    enable_PWM_CLK_DIV(pwm2); // Enable clock divison 
+
+    config_PWM(pwm1, 0x7FF8, 0x00, 0xFFF0);
+    enable_PWM_CLK_DIV(pwm1); // Enable clock divison 
 
     PWM_ModuleEnable(pwm1);
     PWM_ModuleEnable(pwm2);
