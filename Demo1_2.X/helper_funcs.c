@@ -1,5 +1,6 @@
 /* Library of helper funcs */
 #include "helper_funcs.h"
+#include "mcc_generated_files/pwm.h"
 #define PWM_CLK_DIV 0x02; 
 
 /* This function stalls the processor for a little while.
@@ -112,6 +113,8 @@ bool config_PWM(PWM_GENERATOR pwmx, uint16_t dc, uint16_t phase, uint16_t per){
 
 /*
  * Enable the PWM channel's clock as: master clock divided clock divider circuit
+ * In other words set a particular pwm instance's clock to be master clock divided by 
+ * value selected in set_PWM_CLK_DIV
  */
 void enable_PWM_CLK_DIV(PWM_GENERATOR pwmx){
 
@@ -140,5 +143,52 @@ void set_PWM_CLK_DIV(CLK_RATIO ratio){
     PCLKCONbits.DIVSEL = ratio; // The clock division ratio is 1:2
 }
 
+/*
+ * Changes the direction of the stepper motor
+ * Done by swapping the dc and phase of pmw1<->pwm2
+ * and pwm3<->pwm4
+ * Not the most efficient so hopefully compiler optimizes this out
+ */
+void change_stepper_dir(){
+    PWM_GENERATOR pwm1 = PWM_GENERATOR_1;
+    PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
+    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
+    PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
+    PWM_ModuleDisable(pwm1);
+    PWM_ModuleDisable(pwm2);
+    PWM_ModuleDisable(pwm3);
+    PWM_ModuleDisable(pwm4);
+    uint16_t swap1 = 0x0;
+    uint16_t swap2 = 0x0;
+
+    swap1 = PG1DC; // Mask for pwm2 DC
+    swap2 = PG2DC; // Mask for pwm1 DC (read)
+
+    PG1DC = swap2;
+    PG2DC = swap1; // Values swaped (write)
+
+    swap1 = PG3DC;
+    swap2 = PG4DC; 
+
+    PG3DC = swap2;
+    PG4DC = swap1; 
+
+    swap1 = PG3PHASE;
+    swap2 = PG4PHASE;
+
+    PG3PHASE = swap2;
+    PG4PHASE = swap1;
+
+    swap1 = PG2PHASE;
+    swap2 = PG1PHASE;
+
+    PG2PHASE = swap2;
+    PG1PHASE = swap1;
+
+    PWM_ModuleEnable(pwm1);
+    PWM_ModuleEnable(pwm2);
+    PWM_ModuleEnable(pwm3);
+    PWM_ModuleEnable(pwm4);
+}
 
 

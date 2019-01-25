@@ -41,12 +41,6 @@ int main(void)
 
     uint16_t potentiometer = 0;
 
-    // Set PWM pins as output
-    TRISBbits.TRISB11 = 0;
-    TRISBbits.TRISB10 = 0;
-    TRISCbits.TRISC4  = 0;
-    TRISCbits.TRISC10 = 0;
-
     PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
     PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
@@ -85,11 +79,13 @@ int main(void)
             if(!flags.reliable) flags.btn_pressed = 0;
 
             flags.toggle = !flags.toggle;
-            PIN_D9 = flags.toggle; 
+
+            change_stepper_dir();
         }
 
         potentiometer = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
         set_RGB_LED(potentiometer);
+
     }
 
 }

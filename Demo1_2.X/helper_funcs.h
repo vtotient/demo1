@@ -36,7 +36,6 @@ typedef enum
     BUTTON_COLOR_BLUE = 2
 } BUTTON_COLOR;
 
-
 /* Function prototypes */
 void lib_stall(int time);
 void lib_blink(FLAGS *flag);
@@ -45,3 +44,4 @@ void set_RGB_LED(int pot);
 bool config_PWM(PWM_GENERATOR pwmx, uint16_t dc, uint16_t phase, uint16_t per);
 void enable_PWM_CLK_DIV(PWM_GENERATOR pmx);
 void set_PWM_CLK_DIV(CLK_RATIO ratio);
+void change_stepper_dir();

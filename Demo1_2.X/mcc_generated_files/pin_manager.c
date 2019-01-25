@@ -114,6 +114,10 @@ void PIN_MANAGER_Initialize (void)
     // RPOR5 |= 0x0023;    //RB10->PWM:PWM4L
 
     // __builtin_write_RPCON(0x0800); // lock PPS
-
+    // Set PWM pins as output
+    TRISBbits.TRISB11 = 0;
+    TRISBbits.TRISB10 = 0;
+    TRISCbits.TRISC4  = 0;
+    TRISCbits.TRISC10 = 0;
 }
 
