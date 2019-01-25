@@ -93,11 +93,11 @@ xc16-ld 1.36 (A)
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x25a           0x387  (903)
-.text                        0x45a               0x898           0xce4  (3300)
-.dinit                       0xcf2                0x1c            0x2a  (42)
-.text                        0xd0e                0x1c            0x2a  (42)
+.text                        0x45a               0x996           0xe61  (3681)
+.dinit                       0xdf0                0x1c            0x2a  (42)
+.text                        0xe0c                0x1c            0x2a  (42)
 
-                 Total "program" memory used (bytes):         0x10bf  (4287) 3%
+                 Total "program" memory used (bytes):         0x123c  (4668) 3%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0x4000]
@@ -140,74 +140,74 @@ External Symbols in Program Memory (by address):
                   0x000426                  __DefaultInterrupt
                   0x00042c                  ___udivsi3
                   0x00044c                  _memset
-                  0x0004d6                  _lib_stall
-                  0x0004fc                  _lib_blink
-                  0x000566                  _DEBOUNCE_Tasks
-                  0x00057a                  _set_RGB_LED
-                  0x0005c2                  _BUTTON_IsPressed
-                  0x000610                  _BUTTON_Enable
-                  0x000636                  _TIMER_CancelTick
-                  0x00066c                  _TIMER_RequestTick
-                  0x0006d4                  _TIMER_SetConfiguration
-                  0x000728                  _ADC_ReadPercentage
-                  0x000756                  _ADC_Read10bit
-                  0x000764                  _ADC_Read12bit
-                  0x0007ba                  _ADC_Read12bitAverage
-                  0x000806                  _ADC_ChannelEnable
-                  0x00081c                  _ADC_SetConfiguration
-                  0x000858                  _main
-                  0x000952                  _PWM_Initialize
-                  0x000a04                  _PWM_Tasks_Generator3
-                  0x000a1e                  _PWM_Tasks_Generator4
-                  0x000a38                  _PWM_Tasks_EventA
-                  0x000a52                  _PWM_Tasks_EventB
-                  0x000a6c                  _PWM_Tasks_EventC
-                  0x000a86                  _PWM_Tasks_EventD
-                  0x000aa0                  _PWM_Tasks_EventE
-                  0x000aba                  _PWM_Tasks_EventF
-                  0x000ace                  _RESET_GetCause
-                  0x000bda                  _RESET_CauseClearAll
-                  0x000c00                  _SYSTEM_Initialize
-                  0x000c3c                  _PIN_MANAGER_Initialize
-                  0x000c8e                  _CLOCK_Initialize
-                  0x000cd2                  _OSCILLATOR_Initialize
-                  0x000cda                  _SYSTEM_GetResetCause
-                  0x000cea                  _SYSTEM_ResetCauseClearAll
-                  0x000d24                  _INTERRUPT_Initialize
+                  0x000572                  _lib_stall
+                  0x000598                  _lib_blink
+                  0x000602                  _DEBOUNCE_Tasks
+                  0x000616                  _set_RGB_LED
+                  0x00065e                  _BUTTON_IsPressed
+                  0x0006ac                  _BUTTON_Enable
+                  0x0006d2                  _TIMER_CancelTick
+                  0x000708                  _TIMER_RequestTick
+                  0x000770                  _TIMER_SetConfiguration
+                  0x0007c4                  _ADC_ReadPercentage
+                  0x0007f2                  _ADC_Read10bit
+                  0x000800                  _ADC_Read12bit
+                  0x000856                  _ADC_Read12bitAverage
+                  0x0008a2                  _ADC_ChannelEnable
+                  0x0008b8                  _ADC_SetConfiguration
+                  0x0008f4                  _main
+                  0x000a30                  _PWM_Initialize
+                  0x000b02                  _PWM_Tasks_Generator3
+                  0x000b1c                  _PWM_Tasks_Generator4
+                  0x000b36                  _PWM_Tasks_EventA
+                  0x000b50                  _PWM_Tasks_EventB
+                  0x000b6a                  _PWM_Tasks_EventC
+                  0x000b84                  _PWM_Tasks_EventD
+                  0x000b9e                  _PWM_Tasks_EventE
+                  0x000bb8                  _PWM_Tasks_EventF
+                  0x000bcc                  _RESET_GetCause
+                  0x000cd8                  _RESET_CauseClearAll
+                  0x000cfe                  _SYSTEM_Initialize
+                  0x000d3a                  _PIN_MANAGER_Initialize
+                  0x000d8c                  _CLOCK_Initialize
+                  0x000dd0                  _OSCILLATOR_Initialize
+                  0x000dd8                  _SYSTEM_GetResetCause
+                  0x000de8                  _SYSTEM_ResetCauseClearAll
+                  0x000e22                  _INTERRUPT_Initialize
                   0x015f00                  __FSEC.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x000806                  _ADC_ChannelEnable
-                  0x000756                  _ADC_Read10bit
-                  0x000764                  _ADC_Read12bit
-                  0x0007ba                  _ADC_Read12bitAverage
-                  0x000728                  _ADC_ReadPercentage
-                  0x00081c                  _ADC_SetConfiguration
-                  0x000610                  _BUTTON_Enable
-                  0x0005c2                  _BUTTON_IsPressed
-                  0x000c8e                  _CLOCK_Initialize
-                  0x000566                  _DEBOUNCE_Tasks
-                  0x000d24                  _INTERRUPT_Initialize
-                  0x000cd2                  _OSCILLATOR_Initialize
-                  0x000c3c                  _PIN_MANAGER_Initialize
-                  0x000952                  _PWM_Initialize
-                  0x000a38                  _PWM_Tasks_EventA
-                  0x000a52                  _PWM_Tasks_EventB
-                  0x000a6c                  _PWM_Tasks_EventC
-                  0x000a86                  _PWM_Tasks_EventD
-                  0x000aa0                  _PWM_Tasks_EventE
-                  0x000aba                  _PWM_Tasks_EventF
-                  0x000a04                  _PWM_Tasks_Generator3
-                  0x000a1e                  _PWM_Tasks_Generator4
-                  0x000bda                  _RESET_CauseClearAll
-                  0x000ace                  _RESET_GetCause
-                  0x000cda                  _SYSTEM_GetResetCause
-                  0x000c00                  _SYSTEM_Initialize
-                  0x000cea                  _SYSTEM_ResetCauseClearAll
-                  0x000636                  _TIMER_CancelTick
-                  0x00066c                  _TIMER_RequestTick
-                  0x0006d4                  _TIMER_SetConfiguration
+                  0x0008a2                  _ADC_ChannelEnable
+                  0x0007f2                  _ADC_Read10bit
+                  0x000800                  _ADC_Read12bit
+                  0x000856                  _ADC_Read12bitAverage
+                  0x0007c4                  _ADC_ReadPercentage
+                  0x0008b8                  _ADC_SetConfiguration
+                  0x0006ac                  _BUTTON_Enable
+                  0x00065e                  _BUTTON_IsPressed
+                  0x000d8c                  _CLOCK_Initialize
+                  0x000602                  _DEBOUNCE_Tasks
+                  0x000e22                  _INTERRUPT_Initialize
+                  0x000dd0                  _OSCILLATOR_Initialize
+                  0x000d3a                  _PIN_MANAGER_Initialize
+                  0x000a30                  _PWM_Initialize
+                  0x000b36                  _PWM_Tasks_EventA
+                  0x000b50                  _PWM_Tasks_EventB
+                  0x000b6a                  _PWM_Tasks_EventC
+                  0x000b84                  _PWM_Tasks_EventD
+                  0x000b9e                  _PWM_Tasks_EventE
+                  0x000bb8                  _PWM_Tasks_EventF
+                  0x000b02                  _PWM_Tasks_Generator3
+                  0x000b1c                  _PWM_Tasks_Generator4
+                  0x000cd8                  _RESET_CauseClearAll
+                  0x000bcc                  _RESET_GetCause
+                  0x000dd8                  _SYSTEM_GetResetCause
+                  0x000cfe                  _SYSTEM_Initialize
+                  0x000de8                  _SYSTEM_ResetCauseClearAll
+                  0x0006d2                  _TIMER_CancelTick
+                  0x000708                  _TIMER_RequestTick
+                  0x000770                  _TIMER_SetConfiguration
                   0x000362                  __AddressError
                   0x000426                  __DefaultInterrupt
                   0x015f00                  __FSEC.sec
@@ -225,11 +225,11 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x000338                  __start_slave
                   0x000344                  __stop_slave
-                  0x0004fc                  _lib_blink
-                  0x0004d6                  _lib_stall
-                  0x000858                  _main
+                  0x000598                  _lib_blink
+                  0x000572                  _lib_stall
+                  0x0008f4                  _main
                   0x00044c                  _memset
-                  0x00057a                  _set_RGB_LED
+                  0x000616                  _set_RGB_LED
 
 Memory Configuration
 
@@ -460,32 +460,32 @@ __FS1ALTREG
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x7473
+.debug_info       0x000000       0x8ac8
  *(.debug_info)
  .debug_info      0x000000        0x48e build/default/production/mcc_generated_files/reset.o
- .debug_info      0x00048e       0x160d build/default/production/mcc_generated_files/system.o
- .debug_info      0x001a9b        0x390 build/default/production/mcc_generated_files/clock.o
- .debug_info      0x001e2b        0x5e3 build/default/production/mcc_generated_files/traps.o
- .debug_info      0x00240e        0x15a build/default/production/mcc_generated_files/interrupt_manager.o
- .debug_info      0x002568        0xbe8 build/default/production/mcc_generated_files/mcc.o
- .debug_info      0x003150        0x4ff build/default/production/mcc_generated_files/pin_manager.o
- .debug_info      0x00364f       0x28cd build/default/production/main.o
- .debug_info      0x005f1c       0x1557 build/default/production/mcc_generated_files/pwm.o
+ .debug_info      0x00048e       0x1a91 build/default/production/mcc_generated_files/system.o
+ .debug_info      0x001f1f        0x390 build/default/production/mcc_generated_files/clock.o
+ .debug_info      0x0022af        0x5e3 build/default/production/mcc_generated_files/traps.o
+ .debug_info      0x002892        0x15a build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_info      0x0029ec       0x1072 build/default/production/mcc_generated_files/mcc.o
+ .debug_info      0x003a5e        0x4ff build/default/production/mcc_generated_files/pin_manager.o
+ .debug_info      0x003f5d       0x30c6 build/default/production/main.o
+ .debug_info      0x007023       0x1aa5 build/default/production/mcc_generated_files/pwm.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x788
+.debug_abbrev     0x000000        0x7c7
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xf6 build/default/production/mcc_generated_files/reset.o
- .debug_abbrev    0x0000f6         0xfb build/default/production/mcc_generated_files/system.o
- .debug_abbrev    0x0001f1         0x6a build/default/production/mcc_generated_files/clock.o
- .debug_abbrev    0x00025b        0x10d build/default/production/mcc_generated_files/traps.o
- .debug_abbrev    0x000368         0x34 build/default/production/mcc_generated_files/interrupt_manager.o
- .debug_abbrev    0x00039c         0xeb build/default/production/mcc_generated_files/mcc.o
- .debug_abbrev    0x000487         0x59 build/default/production/mcc_generated_files/pin_manager.o
- .debug_abbrev    0x0004e0        0x1f8 build/default/production/main.o
- .debug_abbrev    0x0006d8         0xb0 build/default/production/mcc_generated_files/pwm.o
+ .debug_abbrev    0x0000f6        0x110 build/default/production/mcc_generated_files/system.o
+ .debug_abbrev    0x000206         0x6a build/default/production/mcc_generated_files/clock.o
+ .debug_abbrev    0x000270        0x10d build/default/production/mcc_generated_files/traps.o
+ .debug_abbrev    0x00037d         0x34 build/default/production/mcc_generated_files/interrupt_manager.o
+ .debug_abbrev    0x0003b1         0xeb build/default/production/mcc_generated_files/mcc.o
+ .debug_abbrev    0x00049c         0x59 build/default/production/mcc_generated_files/pin_manager.o
+ .debug_abbrev    0x0004f5        0x20d build/default/production/main.o
+ .debug_abbrev    0x000702         0xc5 build/default/production/mcc_generated_files/pwm.o
 
-.debug_line       0x000000        0xb03
+.debug_line       0x000000        0xb6c
  *(.debug_line)
  .debug_line      0x000000        0x139 build/default/production/mcc_generated_files/reset.o
  .debug_line      0x000139        0x146 build/default/production/mcc_generated_files/system.o
@@ -494,10 +494,10 @@ __FS1ALTREG
  .debug_line      0x00049f         0x55 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_line      0x0004f4         0xf5 build/default/production/mcc_generated_files/mcc.o
  .debug_line      0x0005e9        0x111 build/default/production/mcc_generated_files/pin_manager.o
- .debug_line      0x0006fa        0x29d build/default/production/main.o
- .debug_line      0x000997        0x16c build/default/production/mcc_generated_files/pwm.o
+ .debug_line      0x0006fa        0x2fe build/default/production/main.o
+ .debug_line      0x0009f8        0x174 build/default/production/mcc_generated_files/pwm.o
 
-.debug_frame      0x000000        0x7c0
+.debug_frame      0x000000        0x7dc
  *(.debug_frame)
  .debug_frame     0x000000        0x12c build/default/production/mcc_generated_files/reset.o
  .debug_frame     0x00012c         0x68 build/default/production/mcc_generated_files/system.o
@@ -506,18 +506,18 @@ __FS1ALTREG
  .debug_frame     0x000264         0x30 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_frame     0x000294         0x84 build/default/production/mcc_generated_files/mcc.o
  .debug_frame     0x000318         0x30 build/default/production/mcc_generated_files/pin_manager.o
- .debug_frame     0x000348        0x288 build/default/production/main.o
- .debug_frame     0x0005d0        0x1f0 build/default/production/mcc_generated_files/pwm.o
+ .debug_frame     0x000348        0x2a4 build/default/production/main.o
+ .debug_frame     0x0005ec        0x1f0 build/default/production/mcc_generated_files/pwm.o
 
-.debug_str        0x000000        0x4c5
+.debug_str        0x000000        0x84a
  *(.debug_str)
  .debug_str       0x000000         0x17 build/default/production/mcc_generated_files/reset.o
- .debug_str       0x000017         0xcd build/default/production/mcc_generated_files/system.o
- .debug_str       0x0000e4         0x37 build/default/production/mcc_generated_files/clock.o
- .debug_str       0x00011b         0x24 build/default/production/mcc_generated_files/traps.o
- .debug_str       0x00013f         0xa7 build/default/production/mcc_generated_files/mcc.o
- .debug_str       0x0001e6        0x15d build/default/production/main.o
- .debug_str       0x000343        0x182 build/default/production/mcc_generated_files/pwm.o
+ .debug_str       0x000017        0x198 build/default/production/mcc_generated_files/system.o
+ .debug_str       0x0001af         0x37 build/default/production/mcc_generated_files/clock.o
+ .debug_str       0x0001e6         0x24 build/default/production/mcc_generated_files/traps.o
+ .debug_str       0x00020a        0x16b build/default/production/mcc_generated_files/mcc.o
+ .debug_str       0x000375        0x274 build/default/production/main.o
+ .debug_str       0x0005e9        0x261 build/default/production/mcc_generated_files/pwm.o
 
 .debug_loc
  *(.debug_loc)
@@ -3548,54 +3548,54 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000108        0x905
+                  0x000108        0xbba
  .debug_pubtypes
                   0x000108         0x42 build/default/production/mcc_generated_files/reset.o
  .debug_pubtypes
-                  0x00014a        0x1dd build/default/production/mcc_generated_files/system.o
+                  0x00014a        0x271 build/default/production/mcc_generated_files/system.o
  .debug_pubtypes
-                  0x000327         0x2b build/default/production/mcc_generated_files/clock.o
+                  0x0003bb         0x2b build/default/production/mcc_generated_files/clock.o
  .debug_pubtypes
-                  0x000352         0x94 build/default/production/mcc_generated_files/traps.o
+                  0x0003e6         0x94 build/default/production/mcc_generated_files/traps.o
  .debug_pubtypes
-                  0x0003e6         0x12 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x00047a         0x12 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_pubtypes
-                  0x0003f8        0x11c build/default/production/mcc_generated_files/mcc.o
+                  0x00048c        0x1b0 build/default/production/mcc_generated_files/mcc.o
  .debug_pubtypes
-                  0x000514         0x1f build/default/production/mcc_generated_files/pin_manager.o
+                  0x00063c         0x1f build/default/production/mcc_generated_files/pin_manager.o
  .debug_pubtypes
-                  0x000533        0x3a5 build/default/production/main.o
+                  0x00065b        0x49e build/default/production/main.o
  .debug_pubtypes
-                  0x0008d8        0x135 build/default/production/mcc_generated_files/pwm.o
+                  0x000af9        0x1c9 build/default/production/mcc_generated_files/pwm.o
 
 __c30_signature
-                  0x000a0d         0x4e
+                  0x000cc2         0x4e
  __c30_signature
-                  0x000a0d          0x6 build/default/production/mcc_generated_files/reset.o
+                  0x000cc2          0x6 build/default/production/mcc_generated_files/reset.o
  __c30_signature
-                  0x000a13          0x6 build/default/production/mcc_generated_files/system.o
+                  0x000cc8          0x6 build/default/production/mcc_generated_files/system.o
  __c30_signature
-                  0x000a19          0x6 build/default/production/mcc_generated_files/clock.o
+                  0x000cce          0x6 build/default/production/mcc_generated_files/clock.o
  __c30_signature
-                  0x000a1f          0x6 build/default/production/mcc_generated_files/traps.o
+                  0x000cd4          0x6 build/default/production/mcc_generated_files/traps.o
  __c30_signature
-                  0x000a25          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x000cda          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
  __c30_signature
-                  0x000a2b          0x6 build/default/production/mcc_generated_files/mcc.o
+                  0x000ce0          0x6 build/default/production/mcc_generated_files/mcc.o
  __c30_signature
-                  0x000a31          0x6 build/default/production/mcc_generated_files/pin_manager.o
+                  0x000ce6          0x6 build/default/production/mcc_generated_files/pin_manager.o
  __c30_signature
-                  0x000a37          0x6 build/default/production/main.o
+                  0x000cec          0x6 build/default/production/main.o
  __c30_signature
-                  0x000a3d          0x6 build/default/production/mcc_generated_files/pwm.o
+                  0x000cf2          0x6 build/default/production/mcc_generated_files/pwm.o
  __c30_signature
-                  0x000a43          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/liblega-pic30-elf.a(crt0_dualch.o)
+                  0x000cf8          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/liblega-pic30-elf.a(crt0_dualch.o)
  __c30_signature
-                  0x000a49          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/liblega-pic30-elf.a(data_init_dualch.o)
+                  0x000cfe          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/liblega-pic30-elf.a(data_init_dualch.o)
  __c30_signature
-                  0x000a4f          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/libm-elf.a(udivsi3.cheo)
+                  0x000d04          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/libm-elf.a(udivsi3.cheo)
  __c30_signature
-                  0x000a55          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/liblega-c-elf.a(memset.CH_eo)
+                  0x000d0a          0x6 /Applications/microchip/xc16/v1.36/bin/bin/../../lib/liblega-c-elf.a(memset.CH_eo)
 
 .nbss               0x1000          0x4
  .nbss              0x1000          0x4 build/default/production/main.o
@@ -3710,63 +3710,63 @@ __c30_signature
  .ivt._T1Interrupt
                   0x000016          0x2 build/default/production/main.o
 
-.text             0x00045a        0x898
- .text            0x00045a        0x4f8 build/default/production/main.o
-                  0x0004d6                  _lib_stall
-                  0x0004fc                  _lib_blink
-                  0x000566                  _DEBOUNCE_Tasks
-                  0x00057a                  _set_RGB_LED
-                  0x0005c2                  _BUTTON_IsPressed
-                  0x000610                  _BUTTON_Enable
-                  0x000636                  _TIMER_CancelTick
-                  0x00066c                  _TIMER_RequestTick
-                  0x0006d4                  _TIMER_SetConfiguration
-                  0x000728                  _ADC_ReadPercentage
-                  0x000756                  _ADC_Read10bit
-                  0x000764                  _ADC_Read12bit
-                  0x0007ba                  _ADC_Read12bitAverage
-                  0x000806                  _ADC_ChannelEnable
-                  0x00081c                  _ADC_SetConfiguration
-                  0x000858                  _main
- .text            0x000952        0x17c build/default/production/mcc_generated_files/pwm.o
-                  0x000952                  _PWM_Initialize
-                  0x0009fe                  _PWM_Generator3CallBack
-                  0x000a04                  _PWM_Tasks_Generator3
-                  0x000a18                  _PWM_Generator4CallBack
-                  0x000a1e                  _PWM_Tasks_Generator4
-                  0x000a32                  _PWM_EventACallBack
-                  0x000a38                  _PWM_Tasks_EventA
-                  0x000a4c                  _PWM_EventBCallBack
-                  0x000a52                  _PWM_Tasks_EventB
-                  0x000a66                  _PWM_EventCCallBack
-                  0x000a6c                  _PWM_Tasks_EventC
-                  0x000a80                  _PWM_EventDCallBack
-                  0x000a86                  _PWM_Tasks_EventD
-                  0x000a9a                  _PWM_EventECallBack
-                  0x000aa0                  _PWM_Tasks_EventE
-                  0x000ab4                  _PWM_EventFCallBack
-                  0x000aba                  _PWM_Tasks_EventF
- .text            0x000ace        0x114 build/default/production/mcc_generated_files/reset.o
-                  0x000ace                  _RESET_GetCause
-                  0x000ad6                  _RESET_CauseHandler
-                  0x000bda                  _RESET_CauseClearAll
- .text            0x000be2         0x5a build/default/production/mcc_generated_files/system.o
-                  0x000c00                  _SYSTEM_Initialize
- .text            0x000c3c         0x52 build/default/production/mcc_generated_files/pin_manager.o
-                  0x000c3c                  _PIN_MANAGER_Initialize
- .text            0x000c8e         0x44 build/default/production/mcc_generated_files/clock.o
-                  0x000c8e                  _CLOCK_Initialize
- .text            0x000cd2         0x20 build/default/production/mcc_generated_files/mcc.o
-                  0x000cd2                  _OSCILLATOR_Initialize
-                  0x000cda                  _SYSTEM_GetResetCause
-                  0x000ce2                  _SYSTEM_ResetCauseHandler
-                  0x000cea                  _SYSTEM_ResetCauseClearAll
+.text             0x00045a        0x996
+ .text            0x00045a        0x5d6 build/default/production/main.o
+                  0x000572                  _lib_stall
+                  0x000598                  _lib_blink
+                  0x000602                  _DEBOUNCE_Tasks
+                  0x000616                  _set_RGB_LED
+                  0x00065e                  _BUTTON_IsPressed
+                  0x0006ac                  _BUTTON_Enable
+                  0x0006d2                  _TIMER_CancelTick
+                  0x000708                  _TIMER_RequestTick
+                  0x000770                  _TIMER_SetConfiguration
+                  0x0007c4                  _ADC_ReadPercentage
+                  0x0007f2                  _ADC_Read10bit
+                  0x000800                  _ADC_Read12bit
+                  0x000856                  _ADC_Read12bitAverage
+                  0x0008a2                  _ADC_ChannelEnable
+                  0x0008b8                  _ADC_SetConfiguration
+                  0x0008f4                  _main
+ .text            0x000a30        0x19c build/default/production/mcc_generated_files/pwm.o
+                  0x000a30                  _PWM_Initialize
+                  0x000afc                  _PWM_Generator3CallBack
+                  0x000b02                  _PWM_Tasks_Generator3
+                  0x000b16                  _PWM_Generator4CallBack
+                  0x000b1c                  _PWM_Tasks_Generator4
+                  0x000b30                  _PWM_EventACallBack
+                  0x000b36                  _PWM_Tasks_EventA
+                  0x000b4a                  _PWM_EventBCallBack
+                  0x000b50                  _PWM_Tasks_EventB
+                  0x000b64                  _PWM_EventCCallBack
+                  0x000b6a                  _PWM_Tasks_EventC
+                  0x000b7e                  _PWM_EventDCallBack
+                  0x000b84                  _PWM_Tasks_EventD
+                  0x000b98                  _PWM_EventECallBack
+                  0x000b9e                  _PWM_Tasks_EventE
+                  0x000bb2                  _PWM_EventFCallBack
+                  0x000bb8                  _PWM_Tasks_EventF
+ .text            0x000bcc        0x114 build/default/production/mcc_generated_files/reset.o
+                  0x000bcc                  _RESET_GetCause
+                  0x000bd4                  _RESET_CauseHandler
+                  0x000cd8                  _RESET_CauseClearAll
+ .text            0x000ce0         0x5a build/default/production/mcc_generated_files/system.o
+                  0x000cfe                  _SYSTEM_Initialize
+ .text            0x000d3a         0x52 build/default/production/mcc_generated_files/pin_manager.o
+                  0x000d3a                  _PIN_MANAGER_Initialize
+ .text            0x000d8c         0x44 build/default/production/mcc_generated_files/clock.o
+                  0x000d8c                  _CLOCK_Initialize
+ .text            0x000dd0         0x20 build/default/production/mcc_generated_files/mcc.o
+                  0x000dd0                  _OSCILLATOR_Initialize
+                  0x000dd8                  _SYSTEM_GetResetCause
+                  0x000de0                  _SYSTEM_ResetCauseHandler
+                  0x000de8                  _SYSTEM_ResetCauseClearAll
 
-.dinit            0x000cf2         0x1c
- .dinit           0x000cf2         0x1c data_init
+.dinit            0x000df0         0x1c
+ .dinit           0x000df0         0x1c data_init
 
-.text             0x000d0e         0x1c
- .text            0x000d0e         0x16 build/default/production/mcc_generated_files/traps.o
-                  0x000d0e                  _TRAPS_halt_on_error
- .text            0x000d24          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x000d24                  _INTERRUPT_Initialize
+.text             0x000e0c         0x1c
+ .text            0x000e0c         0x16 build/default/production/mcc_generated_files/traps.o
+                  0x000e0c                  _TRAPS_halt_on_error
+ .text            0x000e22          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x000e22                  _INTERRUPT_Initialize
