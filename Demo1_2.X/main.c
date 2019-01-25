@@ -12,9 +12,8 @@
 #include "timer_1ms.h"
 #include "adc.c"
 #include "adc.h"
-#include "pwm.h"
 
-#define BUTTON_DEBOUNCE_TIME 15000
+#define BUTTON_DEBOUNCE_TIME 25000
 
 //------------------------------------------------------------------------------
 //Global variables
@@ -42,13 +41,59 @@ int main(void)
 
     uint16_t potentiometer = 0;
 
-    // PWM Module 
+    // Set PWM pins as output
+    TRISBbits.TRISB11 = 0;
+    TRISBbits.TRISB10 = 0;
+    TRISCbits.TRISC4  = 0;
+    TRISCbits.TRISC10 = 0;
+
+    PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
-//
-//    PWM_MasterDutyCycleSet(0x7FF0);
-//    PWM_MasterPeriodSet(0xFFF0);
-//    PWM_MasterPhaseSet(0xFFFF);
-//    PWM_ModuleEnable(pwm3);
+    PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
+    PWM_GENERATOR pwm1 = PWM_GENERATOR_1; // Instantiate PGs
+    PCLKCONbits.DIVSEL = 0x01; // The clock division ratio is 1:2
+
+    PWM_ModuleDisable(pwm4);
+    PG4CONHbits.MDCSEL = 0; 
+    PG4CONHbits.MPERSEL = 0;
+    PG4CONHbits.MPHSEL = 0; // Disable master dc, phase, and period
+    PG4CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
+    PWM_DutyCycleSet(pwm4, 0xFFEF);
+    PWM_PeriodSet(pwm4, 0xFFF0); 
+    PWM_PhaseSet(pwm4, 0xBFF4); // Equal to the DC of PWM3
+
+    PWM_ModuleDisable(pwm3);
+    PG3CONHbits.MDCSEL = 0; 
+    PG3CONHbits.MPERSEL = 0;
+    PG3CONHbits.MPHSEL = 0;
+    PG3CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
+    PWM_DutyCycleSet(pwm3, 0xBFF4); // 3/4 of the period
+    PWM_PeriodSet(pwm3, 0xFFF0);
+    PWM_PhaseSet(pwm3, 0x7FF8); // Equal to the DC of PWM2
+
+    PWM_ModuleDisable(pwm2);
+    PG2CONHbits.MDCSEL = 0; 
+    PG2CONHbits.MPERSEL = 0;
+    PG2CONHbits.MPHSEL = 0;
+    PG2CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
+    PWM_DutyCycleSet(pwm2, 0x7FF8); // 1/2 of the PER
+    PWM_PeriodSet(pwm2, 0xFFF0);
+    PWM_PhaseSet(pwm2, 0x3FFC); // Equal to the DC of PWM1
+
+    PWM_ModuleDisable(pwm1);
+    PG1CONHbits.MDCSEL = 0; 
+    PG1CONHbits.MPERSEL = 0;
+    PG1CONHbits.MPHSEL = 0;
+    PG1CONLbits.CLKSEL = 0x02; // Select master clock divided by freq scalar
+    PWM_DutyCycleSet(pwm1, 0x3FFC); // 1/4 of the PER
+    PWM_PeriodSet(pwm1, 0xFFF0);
+    PWM_PhaseSet(pwm1, 0x0000);
+
+    PWM_ModuleEnable(pwm1);
+    PWM_ModuleEnable(pwm2);
+    PWM_ModuleEnable(pwm3);
+    PWM_ModuleEnable(pwm4);
+
 
     while (1)
     {

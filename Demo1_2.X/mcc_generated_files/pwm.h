@@ -78,8 +78,8 @@ typedef enum
 {
 	PWM_GENERATOR_1 =  1,
 	PWM_GENERATOR_2 =  2,
-    PWM_GENERATOR_3 =  3,       
-    PWM_GENERATOR_4 =  4,       
+  PWM_GENERATOR_3 =  3,       
+  PWM_GENERATOR_4 =  4,       
 } PWM_GENERATOR;
         
 /**
@@ -147,7 +147,13 @@ inline static void PWM_ModuleEnable(PWM_GENERATOR genNum)
                 break;       
         case PWM_GENERATOR_4:
                 PG4CONLbits.ON = 1;              
-                break;       
+                break;    
+        case PWM_GENERATOR_2:
+                PG2CONLbits.ON = 1;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1CONLbits.ON = 1;              
+                break;    
         default:break;    
     }     
 }
@@ -176,6 +182,12 @@ inline static void PWM_ModuleDisable(PWM_GENERATOR genNum)
                 break;       
         case PWM_GENERATOR_4:
                 PG4CONLbits.ON = 0;              
+                break; 
+        case PWM_GENERATOR_2:
+                PG2CONLbits.ON = 0;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1CONLbits.ON = 0;              
                 break;       
         default:break;    
     }    
@@ -274,7 +286,13 @@ inline static void PWM_DutyCycleSet(PWM_GENERATOR genNum,uint16_t dutyCycle)
                 break;       
         case PWM_GENERATOR_4:
                 PG4DC = dutyCycle;              
-                break;       
+                break;
+        case PWM_GENERATOR_2:
+                PG2DC = dutyCycle;
+                break; 
+        case PWM_GENERATOR_1:
+                PG1DC = dutyCycle;
+                break; 
         default:break;    
     }  
 }
@@ -309,6 +327,12 @@ inline static void PWM_PeriodSet(PWM_GENERATOR genNum,uint16_t period)
                 break;       
         case PWM_GENERATOR_4:
                 PG4PER = period;              
+                break; 
+        case PWM_GENERATOR_2:
+                PG2PER = period;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1PER = period;              
                 break;       
         default:break;    
     }   
@@ -344,7 +368,13 @@ inline static void PWM_PhaseSet(PWM_GENERATOR genNum,uint16_t phase)
                 break;       
         case PWM_GENERATOR_4:
                 PG4PHASE = phase;              
-                break;       
+                break;
+        case PWM_GENERATOR_2:
+                PG2PHASE = phase;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1PHASE = phase;              
+                break;      
         default:break;    
     } 
 }
@@ -379,6 +409,12 @@ inline static void PWM_TRIGACompareSet(PWM_GENERATOR genNum,uint16_t trigA)
                 break;       
         case PWM_GENERATOR_4:
                 PG4TRIGA = trigA;              
+                break; 
+        case PWM_GENERATOR_2:
+                PG2TRIGA = trigA;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1TRIGA = trigA;              
                 break;       
         default:break;    
     }
@@ -414,6 +450,12 @@ inline static void PWM_TRIGBCompareSet(PWM_GENERATOR genNum,uint16_t trigB)
                 break;       
         case PWM_GENERATOR_4:
                 PG4TRIGB = trigB;              
+                break; 
+        case PWM_GENERATOR_2:
+                PG2TRIGB = trigB;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1TRIGB = trigB;              
                 break;       
         default:break;    
     }
@@ -449,7 +491,13 @@ inline static void PWM_TRIGCCompareSet(PWM_GENERATOR genNum,uint16_t trigC)
                 break;       
         case PWM_GENERATOR_4:
                 PG4TRIGC = trigC;              
-                break;       
+                break;  
+        case PWM_GENERATOR_2:
+                PG2TRIGC = trigC;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1TRIGC = trigC;              
+                break;      
         default:break;    
     }
 }
@@ -481,7 +529,13 @@ inline static void PWM_OverrideLowEnableSet(PWM_GENERATOR genNum, bool enableOve
                 break;       
         case PWM_GENERATOR_4:
                 PG4IOCONLbits.OVRENL = enableOverride;              
-                break;       
+                break;    
+        case PWM_GENERATOR_2:
+                PG2IOCONLbits.OVRENL = enableOverride;              
+                break; 
+        case PWM_GENERATOR_1:
+                PG1IOCONLbits.OVRENL = enableOverride;              
+                break;    
         default:break;    
     }
 }
