@@ -31,13 +31,13 @@ limitations under the License.
 /* Type Definitions ************************************************/
 typedef struct
 {
-    TICK_HANDLER handle;
+    TICK_HANDLER handle; // Pointer to a function
     uint32_t rate;
     uint32_t count;
 } TICK_REQUEST;
 
 /* Variables *******************************************************/
-static TICK_REQUEST requests[TIMER_MAX_1MS_CLIENTS];
+static TICK_REQUEST requests[TIMER_MAX_1MS_CLIENTS]; // array of TICK_REQUESTs
 static bool configured = false;
 
 /*********************************************************************

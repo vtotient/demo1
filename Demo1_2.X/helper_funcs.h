@@ -9,14 +9,14 @@ typedef union
 
     struct 
     {
-        uint8_t led_flag : 1,
-                timer  : 1,
-                btn_pressed : 1,
-                reliable : 1,
-                toggle : 1,
-                spare4 : 1,
-                spare5 : 1,
-                spare6 : 1;
+        uint8_t led_flag    : 1, // For toggling LEDs
+                timer       : 1, // For stall
+                btn_pressed : 1, // For LED toggle
+                reliable    : 1, // Debouncing 
+                step_dir    : 1, // Stepper Motor direction
+                spare5      : 1, 
+                on_off      : 1, // Motor on/off
+                spare6      : 1;
     };
 
 }FLAGS;
@@ -38,10 +38,15 @@ typedef enum
 
 /* Function prototypes */
 void lib_stall(int time);
-void lib_blink(FLAGS *flag);
+void lib_blink();
 void DEBOUNCE_Task(FLAGS *time_elapsed);
 void set_RGB_LED(int pot);
 bool config_PWM(PWM_GENERATOR pwmx, uint16_t dc, uint16_t phase, uint16_t per);
 void enable_PWM_CLK_DIV(PWM_GENERATOR pmx);
 void set_PWM_CLK_DIV(CLK_RATIO ratio);
 void change_stepper_dir();
+void stop_stepper();
+void start_stepper();
+void DEBUG();
+void STEPCOUNT_TASK(void);
+void STEPCONTROL_TASK(void);

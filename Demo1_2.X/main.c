@@ -4,16 +4,18 @@
 #include <stdio.h>
 
 #include "mcc_generated_files/system.h"
+#include "mcc_generated_files/pwm.h"
 #include "helper_funcs.c"
 #include "leds.h"
 #include "buttons.h"
 #include "buttons.c"
-#include "timer_1ms.c"
-#include "timer_1ms.h"
+#include "mcc_generated_files/timer_1ms.c"
+#include "mcc_generated_files/timer_1ms.h"
 #include "adc.c"
 #include "adc.h"
 
 #define BUTTON_DEBOUNCE_TIME 25000
+#define STEPPER_CONST 1000
 
 //------------------------------------------------------------------------------
 //Global variables
@@ -25,6 +27,7 @@ int main(void)
 {
     // initialize the device
     SYSTEM_Initialize(); 
+    flags.all_flags = 0; // Set system flags to zero
 
     // Enable buttons as inputs
     BUTTON_Enable(BUTTON_S1);
@@ -35,9 +38,6 @@ int main(void)
     //Enable and configure the ADC so it can sample the potentiometer.
     ADC_SetConfiguration(ADC_CONFIGURATION_DEFAULT);
     ADC_ChannelEnable(ADC_CHANNEL_POTENTIOMETER);
-
-    FLAGS flags;
-    flags.all_flags = 0; // Set all flags to zero
 
     uint16_t potentiometer = 0;
 
@@ -65,7 +65,12 @@ int main(void)
     PWM_ModuleEnable(pwm2);
     PWM_ModuleEnable(pwm3);
     PWM_ModuleEnable(pwm4);
+    stop_stepper();
 
+    // Configure timer 
+    TIMER_SetConfiguration(TIMER_CONFIGURATION_1MS);
+    TIMER_RequestTick(&STEPCOUNT_TASK, 1); // Exe STEPCOUNT_TASK every 1ms
+    start_stepper();
 
     while (1)
     {
@@ -77,15 +82,14 @@ int main(void)
             flags.btn_pressed = BUTTON_IsPressed(BUTTON_S1) == 1; // Button still pressed?
             flags.reliable = flags.btn_pressed == 1; 
             if(!flags.reliable) flags.btn_pressed = 0;
-
-            flags.toggle = !flags.toggle;
-
-            change_stepper_dir();
         }
 
-        potentiometer = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
+        potentiometer = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER)*100;
         set_RGB_LED(potentiometer);
 
+        if(potentiometer == 0) stop_stepper();
+        else if(desired_step == potentiometer * STEPPER_CONST) stop_stepper();
+        else {desired_step = potentiometer * STEPPER_CONST; start_stepper();}
     }
 
 }

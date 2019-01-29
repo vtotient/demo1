@@ -47,8 +47,7 @@
 */
 
 #include <xc.h>
-#include "pwm.h"
-
+//#include "main.c"
 /**
  Section: Driver Interface Function Definitions
 */
@@ -215,7 +214,51 @@ void PWM_Initialize (void)
     PG4CONL = 0x8008;
     PG2CONL = 0x8008;
     PG1CONL = 0x8008;
+} 
+
+//void __attribute__((interrupt(low_priority))) pwmISR(void){
+//    if( IFS4bits.PWM4IF == 1)
+//        stepper_steps++;
+//    else if( IFS4bits.PWM3IF == 1)
+//        stepper_steps++;
+//    else if( IFS4bits.PWM2IF == 1)
+//        stepper_steps++;
+//    else if( IFS4bits.PWM2IF == 1)
+//        stepper_steps++;
+//}
+
+void __attribute__ ((weak)) PWM_Generator1CallBack(void)
+{
+    /* Add your custom callback code here or implement
+    the Callback in the application code, without the weak attribute */
 }
+
+void PWM_Tasks_Generator1(void)
+{
+    if(IFS4bits.PWM1IF)
+    {
+        PWM_Generator1CallBack();
+    
+        IFS4bits.PWM1IF = 0;
+    }
+}
+
+void __attribute__ ((weak)) PWM_Generator2CallBack(void)
+{
+    /* Add your custom callback code here or implement
+    the Callback in the application code, without the weak attribute */
+}
+
+void PWM_Tasks_Generator2(void)
+{
+    if(IFS4bits.PWM2IF)
+    {
+        PWM_Generator2CallBack();
+    
+        IFS4bits.PWM2IF = 0;
+    }
+}
+
 
 
 void __attribute__ ((weak)) PWM_Generator3CallBack(void)
@@ -231,7 +274,6 @@ void PWM_Tasks_Generator3(void)
 		PWM_Generator3CallBack();
 	
         IFS4bits.PWM3IF = 0;
-        //Add your custom code here.
     }
 }
 

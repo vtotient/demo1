@@ -1,7 +1,15 @@
 /* Library of helper funcs */
 #include "helper_funcs.h"
 #include "mcc_generated_files/pwm.h"
-#define PWM_CLK_DIV 0x02; 
+#define PWM_CLK_DIV 0x02 
+#define PWM_PULSE_TIME 33/2
+
+// Global Variables
+volatile uint16_t ms = 0;
+volatile uint16_t step = 0;
+volatile uint16_t desired_step = 0;
+// Need to use addresses of these vars
+FLAGS flags;
 
 /* This function stalls the processor for a little while.
  * This is a blocking function, best used only for debugging
@@ -21,16 +29,16 @@ void lib_stall(int time){
  * First bit of flag is the led_flag
  * NOTE: flag is 8bts
  */
-void lib_blink(FLAGS *flag){
-	if((flag->led_flag) == 0){
+void lib_blink(){
+	if((flags.led_flag) == 0){
             lib_stall(9000);
             LATEbits.LATE0 = !LATEbits.LATE0; // Blink RED LED1
-            flag->all_flags |= 1; // Set lsb
+            flags.all_flags |= 1; // Set lsb
         }
         else {
             lib_stall(9000);
             LATEbits.LATE1 = !LATEbits.LATE1; // Blink RED LED2
-            flag->all_flags &= 0xFE; // Clear lsb
+            flags.all_flags &= 0xFE; // Clear lsb
         }
 }
 
@@ -39,8 +47,8 @@ void lib_blink(FLAGS *flag){
  * timer triggers an interrupt. 
  * NOTE: Does not clear the flag
  */
-void DEBOUNCE_Tasks(FLAGS *flag){
-	flag->all_flags |= 0x02; // Set the second bit
+void DEBOUNCE_Tasks(){
+	flags.all_flags |= 0x02; // Set the second bit
 }
 
 /* 
@@ -147,17 +155,11 @@ void set_PWM_CLK_DIV(CLK_RATIO ratio){
  * Changes the direction of the stepper motor
  * Done by swapping the dc and phase of pmw1<->pwm2
  * and pwm3<->pwm4
- * Not the most efficient so hopefully compiler optimizes this out
+ * Not the most efficient so hopefully compiler optimizes this 
+ * NOTE: Toggles the step_dir flag. 
  */
 void change_stepper_dir(){
-    PWM_GENERATOR pwm1 = PWM_GENERATOR_1;
-    PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
-    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
-    PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
-    PWM_ModuleDisable(pwm1);
-    PWM_ModuleDisable(pwm2);
-    PWM_ModuleDisable(pwm3);
-    PWM_ModuleDisable(pwm4);
+    stop_stepper();
     uint16_t swap1 = 0x0;
     uint16_t swap2 = 0x0;
 
@@ -185,10 +187,81 @@ void change_stepper_dir(){
     PG2PHASE = swap2;
     PG1PHASE = swap1;
 
+    start_stepper();
+    flags.step_dir ^= 1;
+ }
+
+/*
+ * This function is called in main every loop iteration. It takes the system flag variables
+ * as input as well as the number of steps required. The function will turn the motor to the 
+ * desired position: shaft rotated by num_steps in the direction dir.
+ */
+
+/*
+ * Stops stepper motor by stopping PWM
+ */
+void stop_stepper(){
+    PWM_GENERATOR pwm1 = PWM_GENERATOR_1;
+    PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
+    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
+    PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
+    PWM_ModuleDisable(pwm1);
+    PWM_ModuleDisable(pwm2);
+    PWM_ModuleDisable(pwm3);
+    PWM_ModuleDisable(pwm4);
+    flags.on_off = 0;
+}
+
+/*
+ * Starts stepper motor by starting PWM
+ */ 
+void start_stepper(){
+    PWM_GENERATOR pwm1 = PWM_GENERATOR_1;
+    PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
+    PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
+    PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_ModuleEnable(pwm1);
     PWM_ModuleEnable(pwm2);
     PWM_ModuleEnable(pwm3);
     PWM_ModuleEnable(pwm4);
+    flags.on_off = 1;
 }
+
+/*
+ * Useful for debuging code. Sets LED1 high
+ */
+void DEBUG(){
+    LATEbits.LATE3 ^= 1; // Toggle debug pin
+}
+
+/*
+ * Counts the number of steps, passes the responsibilty of clearing the number 
+ * of steps
+ */
+void STEPCOUNT_TASK(void){
+    if(ms == PWM_PULSE_TIME){ 
+        ms = 0;
+        step++;
+        STEPCONTROL_TASK();
+    }
+    else{
+        ms++;
+    }
+    
+    return;
+}
+
+/*
+ * Drives the motor to the correct angle. If the number of steps == the desired step
+ * i.e. the stepper motor is at the correct angle, clear the steps variable and stop motor
+ */
+void STEPCONTROL_TASK(void){    
+    if(step == desired_step){
+        step = 0;
+        stop_stepper();
+    }
+    return;
+}
+
 
 

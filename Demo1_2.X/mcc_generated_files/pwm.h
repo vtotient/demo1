@@ -52,7 +52,6 @@
 #include <xc.h>
 #include <stdint.h>
 #include <stdbool.h>
-
 #ifdef __cplusplus  // Provide C++ Compatibility
 
     extern "C" {
@@ -81,7 +80,8 @@ typedef enum
   PWM_GENERATOR_3 =  3,       
   PWM_GENERATOR_4 =  4,       
 } PWM_GENERATOR;
-        
+
+
 /**
  Section: Interface Routines
 */
