@@ -4,6 +4,7 @@
 #include "mcc_generated_files/timer_1ms.h"
 #define PWM_CLK_DIV 0x02 
 #define PWM_PULSE_TIME 33/2
+#define WITHIN 10
 
 // Global Variables
 volatile uint16_t ms = 0; // Used to count number of ms
@@ -278,18 +279,43 @@ void STEPCONTROL_TASK(void){
     return;
 }
 
+/* 
+ * This ISR drives the motor. 
+ */
 void START_TASK(void){
-    if(desired_pos != x){
-        desired_pos = x - prev_pos;
-        if(!within_5( desired_pos, cur_pos) && flags.on_off == 0){ 
-            start_stepper();
-            prev_pos = cur_pos;
+    if(desired_pos != x){ // Motor needs to move
+        if(x > cur_pos){
+            if( flags.step_dir == 1){
+                change_stepper_dir();
+            }
+
+            desired_pos = x - prev_pos;
+            
+            if(!within_5( desired_pos, cur_pos) && flags.on_off == 0){ 
+                start_stepper();
+                prev_pos = cur_pos;
+            }
+        }
+        else if(x < cur_pos){
+            if(flags.step_dir == 0){
+                change_stepper_dir(); 
+            }
+
+            desired_pos = prev_pos - x;
+            
+            if(!within_5( desired_pos, cur_pos) && flags.on_off == 0){ 
+                start_stepper();
+                prev_pos = cur_pos;
+            }
         }
     }
 }
 
+/*
+ * Checks if within a constant
+ */ 
 bool within_5(uint16_t prev, uint16_t current){
-    if(current <= prev + 10 && current  >= prev - 10){
+    if(current <= prev + WITHIN && current  >= prev - WITHIN){
         return true;
     } else if (prev == 0){
         return true;
