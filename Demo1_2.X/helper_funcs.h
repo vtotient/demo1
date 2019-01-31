@@ -14,7 +14,7 @@ typedef union
                 btn_pressed : 1, // For LED toggle
                 reliable    : 1, // Debouncing 
                 step_dir    : 1, // Stepper Motor direction
-                spare5      : 1, 
+                arrive      : 1, 
                 on_off      : 1, // Motor on/off
                 spare6      : 1;
     };
@@ -50,3 +50,5 @@ void start_stepper();
 void DEBUG();
 void STEPCOUNT_TASK(void);
 void STEPCONTROL_TASK(void);
+bool within_5(uint16_t prev, uint16_t current);
+void START_TASK(void);

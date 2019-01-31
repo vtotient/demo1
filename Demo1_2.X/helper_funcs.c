@@ -1,14 +1,20 @@
 /* Library of helper funcs */
 #include "helper_funcs.h"
 #include "mcc_generated_files/pwm.h"
+#include "mcc_generated_files/timer_1ms.h"
 #define PWM_CLK_DIV 0x02 
 #define PWM_PULSE_TIME 33/2
 
 // Global Variables
-volatile uint16_t ms = 0;
-volatile uint16_t step = 0;
-volatile uint16_t desired_step = 0;
-// Need to use addresses of these vars
+volatile uint16_t ms = 0; // Used to count number of ms
+volatile uint16_t step = 0; // Used in the timer to count number of steps taken
+volatile uint16_t desired_pos = 0; // The desired number of steps to be taken
+volatile uint16_t cur_pos = 0; // The current relative position of stepper motor shaft
+volatile uint16_t prev_pos = 0;
+volatile uint16_t x = 0;
+
+
+
 FLAGS flags;
 
 /* This function stalls the processor for a little while.
@@ -234,19 +240,28 @@ void DEBUG(){
     LATEbits.LATE3 ^= 1; // Toggle debug pin
 }
 
+
 /*
  * Counts the number of steps, passes the responsibilty of clearing the number 
  * of steps
  */
 void STEPCOUNT_TASK(void){
-    if(ms == PWM_PULSE_TIME){ 
-        ms = 0;
-        step++;
-        STEPCONTROL_TASK();
-    }
-    else{
-        ms++;
-    }
+    if(flags.on_off == 1){ // Only exe if motor is on
+        if(ms == PWM_PULSE_TIME){ 
+            ms = 0;
+            step++;
+            if(flags.step_dir == 0){
+                cur_pos++;
+            } 
+            else if(flags.step_dir == 1){
+                cur_pos--;
+            }
+            STEPCONTROL_TASK();
+        }
+        else{
+            ms++;
+        }
+    }   
     
     return;
 }
@@ -256,12 +271,28 @@ void STEPCOUNT_TASK(void){
  * i.e. the stepper motor is at the correct angle, clear the steps variable and stop motor
  */
 void STEPCONTROL_TASK(void){    
-    if(step == desired_step){
+    if(step >= desired_pos){
         step = 0;
         stop_stepper();
     }
     return;
 }
 
+void START_TASK(void){
+    if(desired_pos != x){
+        desired_pos = x - prev_pos;
+        if(!within_5( desired_pos, cur_pos) && flags.on_off == 0){ 
+            start_stepper();
+            prev_pos = cur_pos;
+        }
+    }
+}
 
-
+bool within_5(uint16_t prev, uint16_t current){
+    if(current <= prev + 10 && current  >= prev - 10){
+        return true;
+    } else if (prev == 0){
+        return true;
+    }
+    return false;
+}

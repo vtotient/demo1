@@ -26,7 +26,7 @@ limitations under the License.
 #define TIMER_TICK_INTERVAL_MICRO_SECONDS 1000
 
 /* Type Definitions ***********************************************/
-typedef void (*TICK_HANDLER)(void);
+typedef void (*TICK_HANDLER)(void); // Pointer to a function
 
 typedef enum
 {

@@ -5,6 +5,7 @@
 
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/pwm.h"
+#include "mcc_generated_files/uart.h"
 #include "helper_funcs.c"
 #include "leds.h"
 #include "buttons.h"
@@ -15,7 +16,7 @@
 #include "adc.h"
 
 #define BUTTON_DEBOUNCE_TIME 25000
-#define STEPPER_CONST 1000
+#define STEPPER_CONST 7
 
 //------------------------------------------------------------------------------
 //Global variables
@@ -28,6 +29,8 @@ int main(void)
     // initialize the device
     SYSTEM_Initialize(); 
     flags.all_flags = 0; // Set system flags to zero
+    uint16_t pot = 0;
+
 
     // Enable buttons as inputs
     BUTTON_Enable(BUTTON_S1);
@@ -38,8 +41,6 @@ int main(void)
     //Enable and configure the ADC so it can sample the potentiometer.
     ADC_SetConfiguration(ADC_CONFIGURATION_DEFAULT);
     ADC_ChannelEnable(ADC_CHANNEL_POTENTIOMETER);
-
-    uint16_t potentiometer = 0;
 
     PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
@@ -68,14 +69,27 @@ int main(void)
     stop_stepper();
 
     // Configure timer 
-    TIMER_SetConfiguration(TIMER_CONFIGURATION_1MS);
+    TIMER_SetConfiguration(TIMER_CONFIGURATION_1MS); // Start the timer
     TIMER_RequestTick(&STEPCOUNT_TASK, 1); // Exe STEPCOUNT_TASK every 1ms
-    start_stepper();
+    TIMER_RequestTick(&START_TASK, 1); 
+
+    printf("\033[2J");      //Clear screen
+    printf("\033[0;0f");    //return cursor to 0,0
+    printf("\033[?25l");    //disable cursor
+    
+    printf("------------------------------------------------------------------\r\n");
+    printf("dsPIC33CH Curiosity Demo\r\n");
+    printf("------------------------------------------------------------------\r\n");
+    printf("S1 - controls LED1, changes active RGB color\r\n");
+    printf("S2 - controls LED2, changes active RGB color\r\n");
+    printf("S3 - enable/disable transient load test\r\n");
+    printf("Potentiometer - controls active RGB color intensity\r\n");
+    printf("\r\n");
 
     while (1)
     {
         lib_blink(&flags);
-        
+
         if(BUTTON_IsPressed(BUTTON_S1) == 1){
             // Debounce
             lib_stall(BUTTON_DEBOUNCE_TIME); // Wait
@@ -84,12 +98,8 @@ int main(void)
             if(!flags.reliable) flags.btn_pressed = 0;
         }
 
-        potentiometer = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER)*100;
-        set_RGB_LED(potentiometer);
-
-        if(potentiometer == 0) stop_stepper();
-        else if(desired_step == potentiometer * STEPPER_CONST) stop_stepper();
-        else {desired_step = potentiometer * STEPPER_CONST; start_stepper();}
+        pot = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
+        x = pot * STEPPER_CONST; 
+        set_RGB_LED(pot);
     }
-
 }
