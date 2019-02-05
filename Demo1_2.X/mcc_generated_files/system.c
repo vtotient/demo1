@@ -78,4 +78,8 @@ void SYSTEM_Initialize(void)
     IEC0 |= 0x2; 
     // Set low priority for Capture Channel 1: bits 6-4
     IPC0 |= 0x70;
+
+    /* Set PPS up for the UART->USB pins */
+    _RP59R = 0x01;
+    _U1RXR = 58;
 }
