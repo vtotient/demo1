@@ -5,7 +5,7 @@
 
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/pwm.h"
-#include "mcc_generated_files/uart.h"
+#include "mcc_generated_files/uart1.h"
 #include "helper_funcs.c"
 #include "leds.h"
 #include "buttons.h"
@@ -18,10 +18,20 @@
 #define BUTTON_DEBOUNCE_TIME 25000
 #define STEPPER_CONST 7
 
+#pragma message "Connect USB-UART port on board to your PC and set COM port to: 230400 baud, 8-bit, 1 stop."
+
 //------------------------------------------------------------------------------
 //Global variables
 //------------------------------------------------------------------------------
 static volatile BUTTON_COLOR buttonColor = BUTTON_COLOR_RED;
+static volatile uint16_t sensor_1;
+static volatile uint16_t sensor_1_per;
+static volatile uint16_t sensor_1_avg;
+static volatile uint16_t sensor_2;
+static volatile uint16_t sensor_2_per;
+static volatile uint16_t sensor_3_per;
+static volatile uint16_t sensor_4;
+static volatile uint16_t sensor_5;
 
 
 int main(void)
@@ -41,7 +51,13 @@ int main(void)
     //Enable and configure the ADC so it can sample the potentiometer.
     ADC_SetConfiguration(ADC_CONFIGURATION_DEFAULT);
     ADC_ChannelEnable(ADC_CHANNEL_POTENTIOMETER);
+    ADC_ChannelEnable(ADC_CHANNEL_SENSOR_1);
+    ADC_ChannelEnable(ADC_CHANNEL_SENSOR_2);
+    ADC_ChannelEnable(ADC_CHANNEL_SENSOR_3);
+    ADC_ChannelEnable(ADC_CHANNEL_SENSOR_4);
+    ADC_ChannelEnable(ADC_CHANNEL_SENSOR_5);
 
+    PWM_GENERATOR pwm5 = PWM_GENERATOR_5;
     PWM_GENERATOR pwm4 = PWM_GENERATOR_4;
     PWM_GENERATOR pwm3 = PWM_GENERATOR_3;
     PWM_GENERATOR pwm2 = PWM_GENERATOR_2;
@@ -49,6 +65,9 @@ int main(void)
     CLK_RATIO     clk  = ONE_FOUR; // Set the clock divison ratio for PWM
 
     set_PWM_CLK_DIV(clk); // Enable the clock divison circuit
+
+    config_PWM(pwm5, 0xFFEF, 0xBFF4, 0xFFF0); // Configure DC, PHASE, PER (in that order)
+    enable_PWM_CLK_DIV(pwm5); // Enable clock divison
 
     config_PWM(pwm4, 0xFFEF, 0xBFF4, 0xFFF0); // Configure DC, PHASE, PER (in that order)
     enable_PWM_CLK_DIV(pwm4); // Enable clock divison 
@@ -66,29 +85,54 @@ int main(void)
     PWM_ModuleEnable(pwm2);
     PWM_ModuleEnable(pwm3);
     PWM_ModuleEnable(pwm4);
+    PWM_ModuleEnable(pwm5);
     stop_stepper();
 
-    // Configure timer 
-    TIMER_SetConfiguration(TIMER_CONFIGURATION_1MS); // Start the timer
-    TIMER_RequestTick(&STEPCOUNT_TASK, 1); // Exe STEPCOUNT_TASK every 1ms
-    TIMER_RequestTick(&START_TASK, 1); 
 
     printf("\033[2J");      //Clear screen
     printf("\033[0;0f");    //return cursor to 0,0
     printf("\033[?25l");    //disable cursor
     
     printf("------------------------------------------------------------------\r\n");
-    printf("dsPIC33CH Curiosity Demo\r\n");
+    printf("Group C6: Controller Demo2\r\n");
     printf("------------------------------------------------------------------\r\n");
-    printf("S1 - controls LED1, changes active RGB color\r\n");
-    printf("S2 - controls LED2, changes active RGB color\r\n");
-    printf("S3 - enable/disable transient load test\r\n");
-    printf("Potentiometer - controls active RGB color intensity\r\n");
+    printf("Potentiometer - controls active stepper motor\r\n");
     printf("\r\n");
 
     while (1)
     {
-        lib_blink(&flags);
+        sensor_1 = ADC_Read12bit(ADC_CHANNEL_SENSOR_1);
+        sensor_1_avg = ADC_Read12bitAverage(ADC_CHANNEL_SENSOR_1, 20);
+        sensor_1_per = ADC_ReadPercentage(ADC_CHANNEL_SENSOR_1);    
+
+        sensor_2 = ADC_Read12bit(ADC_CHANNEL_SENSOR_2);
+        sensor_2_per = ADC_ReadPercentage(ADC_CHANNEL_SENSOR_2);    
+
+        sensor_3_per = ADC_Read12bit(ADC_CHANNEL_SENSOR_3);
+
+        sensor_4 = ADC_Read12bit(ADC_CHANNEL_SENSOR_4);    
+        sensor_5 = ADC_Read12bit(ADC_CHANNEL_SENSOR_5);    
+
+        printf("\033[9;0f");    //move cursor to row 8, column 0
+        // printf("Potentiometer Value percentage: %4d\r\n", pot);
+        printf("Sensor 1 Value: %4d\r\n", sensor_1);
+        printf("Sensor 2 Value: %4d\r\n", sensor_2);
+        printf("Sensor 3 Value average: %4d\r\n", sensor_3_per);
+        printf("Sensor 4 Value average: %4d\r\n", sensor_4);
+        printf("Sensor 5 Value average: %4d\r\n", sensor_5);
+        // printf("Sensor 1 Value percentage: %4d\r\n", sensor_1_per);
+        // printf("Sensor 1 Value average: %4d\r\n", sensor_1_avg);
+        // printf("Led Flag: %1d\r\n", flags.led_flag);
+        // printf("Timer: %1d\r\n", flags.timer);
+        // printf("Btn Pressed: %1d\r\n", flags.btn_pressed);
+        // printf("Reliable: %1d\r\n", flags.reliable);
+        // printf("Step Dir: %1d\r\n", flags.step_dir);
+        // printf("Arrive: %1d\r\n", flags.arrive);
+        // printf("On/Off: %1d\r\n", flags.on_off);
+        // printf("spare6: %1d\r\n", flags.spare6);
+        printf("\r\n");
+
+        //lib_blink(&flags);
 
         if(BUTTON_IsPressed(BUTTON_S1) == 1){
             // Debounce
@@ -99,7 +143,7 @@ int main(void)
         }
 
         pot = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
-        x = pot * STEPPER_CONST; 
         set_RGB_LED(pot);
+
     }
 }

@@ -214,18 +214,7 @@ void PWM_Initialize (void)
     PG4CONL = 0x8008;
     PG2CONL = 0x8008;
     PG1CONL = 0x8008;
-} 
-
-//void __attribute__((interrupt(low_priority))) pwmISR(void){
-//    if( IFS4bits.PWM4IF == 1)
-//        stepper_steps++;
-//    else if( IFS4bits.PWM3IF == 1)
-//        stepper_steps++;
-//    else if( IFS4bits.PWM2IF == 1)
-//        stepper_steps++;
-//    else if( IFS4bits.PWM2IF == 1)
-//        stepper_steps++;
-//}
+}
 
 void __attribute__ ((weak)) PWM_Generator1CallBack(void)
 {

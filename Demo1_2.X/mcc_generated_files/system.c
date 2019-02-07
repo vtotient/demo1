@@ -49,6 +49,8 @@
 #include "interrupt_manager.h"
 #include "traps.h"
 #include "pwm.h"
+#include "uart1.c"
+
 
 void SYSTEM_Initialize(void)
 {
@@ -58,6 +60,7 @@ void SYSTEM_Initialize(void)
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
     PWM_Initialize();
+    UART1_Initialize();
 
     TRISEbits.TRISE0 = 0;
     TRISEbits.TRISE1 = 0;

@@ -23,6 +23,8 @@ limitations under the License.
 #define UART1_BAUD 9600
 #endif
 
+#define FCY 8000000
+
 #ifndef FCY
 #error "FCY defintion required to calculate baud rate.  Please define."
 #endif

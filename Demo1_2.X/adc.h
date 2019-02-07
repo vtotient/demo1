@@ -21,11 +21,21 @@ limitations under the License.
 #include <stdbool.h>
 
 /*** ADC Channel Definitions *****************************************/
-#define ADC_CHANNEL_POTENTIOMETER ADC_CHANNEL_0
+#define ADC_CHANNEL_POTENTIOMETER  ADC_CHANNEL_0
+#define ADC_CHANNEL_SENSOR_1       ADC_CHANNEL_1
+#define ADC_CHANNEL_SENSOR_2       ADC_CHANNEL_2
+#define ADC_CHANNEL_SENSOR_3       ADC_CHANNEL_3
+#define ADC_CHANNEL_SENSOR_4       ADC_CHANNEL_4
+#define ADC_CHANNEL_SENSOR_5       ADC_CHANNEL_5
 
 typedef enum
 {
-    ADC_CHANNEL_0 = 0
+    ADC_CHANNEL_0 = 0,
+    ADC_CHANNEL_1 = 4,
+    ADC_CHANNEL_2 = 5,
+    ADC_CHANNEL_3 = 7,
+    ADC_CHANNEL_4 = 8,
+    ADC_CHANNEL_5 = 9
 } ADC_CHANNEL;
 
 typedef enum

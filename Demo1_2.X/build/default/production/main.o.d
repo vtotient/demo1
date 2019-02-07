@@ -3,7 +3,7 @@ main.c  \
 mcc_generated_files/system.h  \
  mcc_generated_files/system_types.h  \
 mcc_generated_files/pwm.h  \
- mcc_generated_files/uart.h  \
+ mcc_generated_files/uart1.h  \
 helper_funcs.c  \
 helper_funcs.h  \
  mcc_generated_files/timer_1ms.h  \

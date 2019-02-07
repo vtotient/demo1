@@ -114,8 +114,19 @@ void PIN_MANAGER_Initialize (void)
     TRISBbits.TRISB10 = 0;
     TRISCbits.TRISC4  = 0;
     TRISCbits.TRISC10 = 0;
+    TRISBbits.TRISB7 = 0;
 
 
     TRISEbits.TRISE3 = 0; // Debug pin
+
+    /****************************************************************************
+     * For the ADC
+     ***************************************************************************/
+    TRISEbits.TRISE11 = 1; // Set as input
+    //ANSELEbits.ANSELE11 = 1; // Set as analog input
+    TRISAbits.TRISA2 = 1;
+    TRISBbits.TRISB2 = 1;
+    TRISBbits.TRISB3 = 1;
+    TRISBbits.TRISB7 = 1;
 }
 

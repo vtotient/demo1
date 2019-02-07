@@ -6,4 +6,6 @@ mcc_generated_files/system.h  \
  mcc_generated_files/system_types.h  \
  mcc_generated_files/interrupt_manager.h  \
 mcc_generated_files/traps.h  \
- mcc_generated_files/pwm.h 
+ mcc_generated_files/pwm.h  \
+mcc_generated_files/uart1.c  \
+ mcc_generated_files/uart1.h 

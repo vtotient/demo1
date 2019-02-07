@@ -51,6 +51,16 @@ uint8_t ADC_ReadPercentage( ADC_CHANNEL channel )
     {
         case ADC_CHANNEL_0:
             break;
+        case ADC_CHANNEL_1:
+            break;
+        case ADC_CHANNEL_2:
+            break;
+        case ADC_CHANNEL_3:
+            break;
+        case ADC_CHANNEL_4:
+            break;
+        case ADC_CHANNEL_5:
+            break;
         default:
             return 0xFF;
     }
@@ -135,6 +145,13 @@ uint16_t ADC_Read12bit(ADC_CHANNEL channel)
         while((ADSTATH & bitOfInterestMask) == 0);            
     }
 
+    /* Debugging purposes */
+    // printf("\033[20;0f");    //move cursor to row 19, column 0
+    // printf("DEBUG: %4d\r\n", *pResultRegister);
+    // printf("DEBUG: %4d\r\n", channel);
+    // printf("DEBUG: %4d\r\n", ADCON3L);
+    // printf("DEBUG: %4d\r\n", ADSTATL);
+
     //The data should be available.  Return it now.
     return (*pResultRegister);
 }
@@ -204,6 +221,26 @@ bool ADC_ChannelEnable(ADC_CHANNEL channel)
         case ADC_CHANNEL_0:
             ANSELAbits.ANSELA0 = 1 ;
             return true;
+
+       case ADC_CHANNEL_1:
+           ANSELAbits.ANSELA4 = 1;  // AN4
+           return true;
+
+        case ADC_CHANNEL_2:
+           ANSELBbits.ANSELB0 = 1; // AN5
+           return true;
+
+        case ADC_CHANNEL_3:
+           ANSELBbits.ANSELB2 = 1; // AN7
+           return true;
+
+        case ADC_CHANNEL_4:
+           ANSELBbits.ANSELB3 = 1; // AN8
+           return true;
+
+        case ADC_CHANNEL_5:
+           ANSELBbits.ANSELB7 = 1; // AN9
+           return true;
 
         default:
             return false;
