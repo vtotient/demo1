@@ -51,7 +51,6 @@
 #include "pwm.h"
 #include "uart1.c"
 
-
 void SYSTEM_Initialize(void)
 {
     PIN_MANAGER_Initialize();

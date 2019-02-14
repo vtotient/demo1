@@ -128,5 +128,6 @@ void PIN_MANAGER_Initialize (void)
     TRISBbits.TRISB2 = 1;
     TRISBbits.TRISB3 = 1;
     TRISBbits.TRISB7 = 1;
+    TRISBbits.TRISB4 = 0;
 }
 

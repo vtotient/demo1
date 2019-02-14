@@ -52,3 +52,4 @@ void STEPCOUNT_TASK(void);
 void STEPCONTROL_TASK(void);
 bool within_5(uint16_t prev, uint16_t current);
 void START_TASK(void);
+void PWM_UpdateDC(uint16_t newDC);

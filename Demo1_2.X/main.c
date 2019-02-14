@@ -14,11 +14,12 @@
 #include "mcc_generated_files/timer_1ms.h"
 #include "adc.c"
 #include "adc.h"
+#include "drv_mcpwm.h"
 
 #define BUTTON_DEBOUNCE_TIME 25000
 #define STEPPER_CONST 7
 
-#pragma message "Connect USB-UART port on board to your PC and set COM port to: 230400 baud, 8-bit, 1 stop."
+#pragma message "Connect USB-UART port on board to your PC and set COM port to: 9600 baud, 8-bit, 1 stop."
 
 //------------------------------------------------------------------------------
 //Global variables
@@ -32,12 +33,14 @@ static volatile uint16_t sensor_2_per;
 static volatile uint16_t sensor_3_per;
 static volatile uint16_t sensor_4;
 static volatile uint16_t sensor_5;
+static volatile double DC_control;
 
 
 int main(void)
 {
     // initialize the device
     SYSTEM_Initialize(); 
+
     flags.all_flags = 0; // Set system flags to zero
     uint16_t pot = 0;
 
@@ -86,8 +89,7 @@ int main(void)
     PWM_ModuleEnable(pwm3);
     PWM_ModuleEnable(pwm4);
     PWM_ModuleEnable(pwm5);
-    stop_stepper();
-
+    //stop_stepper();
 
     printf("\033[2J");      //Clear screen
     printf("\033[0;0f");    //return cursor to 0,0
@@ -101,18 +103,22 @@ int main(void)
 
     while (1)
     {
-        sensor_1 = ADC_Read12bit(ADC_CHANNEL_SENSOR_1);
+        /* read the ADC */
+        sensor_1     = ADC_Read12bit(ADC_CHANNEL_SENSOR_1);
         sensor_1_avg = ADC_Read12bitAverage(ADC_CHANNEL_SENSOR_1, 20);
         sensor_1_per = ADC_ReadPercentage(ADC_CHANNEL_SENSOR_1);    
 
-        sensor_2 = ADC_Read12bit(ADC_CHANNEL_SENSOR_2);
+        sensor_2     = ADC_Read12bit(ADC_CHANNEL_SENSOR_2);
         sensor_2_per = ADC_ReadPercentage(ADC_CHANNEL_SENSOR_2);    
 
         sensor_3_per = ADC_Read12bit(ADC_CHANNEL_SENSOR_3);
 
-        sensor_4 = ADC_Read12bit(ADC_CHANNEL_SENSOR_4);    
-        sensor_5 = ADC_Read12bit(ADC_CHANNEL_SENSOR_5);    
+        sensor_4     = ADC_Read12bit(ADC_CHANNEL_SENSOR_4);    
+        sensor_5     = ADC_Read12bit(ADC_CHANNEL_SENSOR_5);    
 
+        pot = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
+
+        /* Display on command line */
         printf("\033[9;0f");    //move cursor to row 8, column 0
         // printf("Potentiometer Value percentage: %4d\r\n", pot);
         printf("Sensor 1 Value: %4d\r\n", sensor_1);
@@ -120,6 +126,8 @@ int main(void)
         printf("Sensor 3 Value average: %4d\r\n", sensor_3_per);
         printf("Sensor 4 Value average: %4d\r\n", sensor_4);
         printf("Sensor 5 Value average: %4d\r\n", sensor_5);
+        printf("%4d\n", pot );
+        printf("%8d\n",(uint16_t)DC_control);
         // printf("Sensor 1 Value percentage: %4d\r\n", sensor_1_per);
         // printf("Sensor 1 Value average: %4d\r\n", sensor_1_avg);
         // printf("Led Flag: %1d\r\n", flags.led_flag);
@@ -132,18 +140,9 @@ int main(void)
         // printf("spare6: %1d\r\n", flags.spare6);
         printf("\r\n");
 
-        //lib_blink(&flags);
-
-        if(BUTTON_IsPressed(BUTTON_S1) == 1){
-            // Debounce
-            lib_stall(BUTTON_DEBOUNCE_TIME); // Wait
-            flags.btn_pressed = BUTTON_IsPressed(BUTTON_S1) == 1; // Button still pressed?
-            flags.reliable = flags.btn_pressed == 1; 
-            if(!flags.reliable) flags.btn_pressed = 0;
-        }
-
-        pot = ADC_ReadPercentage(ADC_CHANNEL_POTENTIOMETER);
-        set_RGB_LED(pot);
+        /* Control DC for Boost convertor */
+        DC_control = 65535.0*(pot/100.0);
+        PWM_UpdateDC((uint16_t)DC_control);      
 
     }
 }

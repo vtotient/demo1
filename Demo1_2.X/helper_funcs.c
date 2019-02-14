@@ -322,3 +322,13 @@ bool within_5(uint16_t prev, uint16_t current){
     }
     return false;
 }
+
+//Updates the PWM output duty cycle/on time.
+void PWM_UpdateDC(uint16_t newDC)
+{    
+    //Update the PWM duty cycle register now.
+    PG1DC = newDC;
+    
+    //Let the hardware know we wrote new value to the register and it should perform an internal bufferred update procedure.
+    PG1STAT |= 0x0008;   //Set the UPDREQ bit to initiate the hardware update
+}

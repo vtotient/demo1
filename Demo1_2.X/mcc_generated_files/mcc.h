@@ -53,9 +53,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "watchdog.h"
-#include "reset.h"
 #include "interrupt_manager.h"
 #include "traps.h"
+#include "reset.h"
 
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ  8000000UL
